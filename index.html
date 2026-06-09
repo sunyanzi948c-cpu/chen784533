@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>活力醫療中心</title>
+    <link rel="stylesheet" href="style.css?v=8" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container nav-container">
+        <a href="https://homemade0726.neocities.org/" class="logo">
+          <span class="logo-icon">✚</span> 活力醫療
+        </a>
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox" />
+        <label for="menu-toggle" class="menu-btn">☰</label>
+
+        <nav class="nav-links">
+          <a href="#about">關於我們</a>
+          <a href="#hours">門診時間</a>
+
+          <div class="dropdown">
+            <a href="#team" class="dropdown-toggle">醫療團隊 ▾</a>
+
+            <input type="checkbox" id="team-toggle" class="dropdown-checkbox" />
+            <label for="team-toggle" class="dropdown-label">醫療團隊 ▾</label>
+
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a href="#">新陳代謝科</a>
+                <a href="#">神經內科</a>
+                <a href="#">腎臟內科</a>
+                <a href="#">眼科</a>
+                <a href="#">泌尿科</a>
+                <a href="#">肝膽腸胃科</a>
+                <a href="#">心臟內科</a>
+                <a href="#">胸腔內科</a>
+                <a href="#">居家護理師</a>
+                <a href="#">護理衛教師</a>
+                <a href="#">護理師</a>
+                <a href="#">營養衛教師</a>
+                <a href="#">血液透析護理師</a>
+                <a href="#">醫檢師</a>
+                <a href="#">心理師</a>
+                <a href="#">藥師</a>
+              </div>
+            </div>
+          </div>
+
+          <a href="#dialysis">智能透析</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero-carousel" id="carousel-section">
+      <button class="carousel-btn prev-btn" id="prevBtn">❮</button>
+
+      <div class="carousel-track" id="carouselTrack">
+        <div class="slide">
+          <img src="image/IDF-Banner改.jpg" alt="IDF 糖尿病照護卓越中心認證" />
+        </div>
+        <div class="slide">
+          <img
+            src="image/橫幅十 - 老闆得獎.jpg"
+            alt="李兆俊院長榮獲世界頂尖 Top5 學者" />
+        </div>
+        <div class="slide">
+          <img src="image/橫幅十.png" alt="李氏聯合診所 全方位慢性病治療" />
+        </div>
+        <div class="slide">
+          <img src="image/橫幅十二.png" alt="藍文君診所 榮獲國健署特優獎" />
+        </div>
+      </div>
+
+      <button class="carousel-btn next-btn" id="nextBtn">❯</button>
+
+      <div class="carousel-dots" id="dotContainer">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+        <span class="dot" data-index="3"></span>
+      </div>
+    </section>
+
+    <main class="container">
+      <section class="boards-section">
+        <div class="board news-board">
+          <div class="board-header">
+            <h2>📢 最新消息</h2>
+            <a href="news.html" class="more-link">看更多</a>
+          </div>
+          <ul class="news-list" id="index-news-list"></ul>
+        </div>
+
+        <div class="board edu-board">
+          <div class="board-header">
+            <h2>💡 衛教專區</h2>
+            <a href="education.html" class="more-link">看更多</a>
+          </div>
+          <div class="edu-grid">
+            <a href="#" class="edu-card">
+              <div class="edu-tag">慢性病</div>
+              <h3>糖尿病的日常飲食控制原則</h3>
+            </a>
+            <a href="#" class="edu-card">
+              <div class="edu-tag">腎臟科</div>
+              <h3>如何保護腎臟？這五件事不可不知</h3>
+            </a>
+            <a href="#" class="edu-card">
+              <div class="edu-tag">預防醫學</div>
+              <h3>長者防跌指南，居家環境這樣改</h3>
+            </a>
+            <a href="#" class="edu-card">
+              <div class="edu-tag">心臟科</div>
+              <h3>認識高血壓，沉默的健康殺手</h3>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="video-section">
+        <div class="board-header">
+          <h2>▶️ 影片專區</h2>
+          <a href="#" class="more-link">看更多</a>
+        </div>
+        <div class="video-grid">
+          <div class="video-card">
+            <div class="video-thumbnail">健康講座：吃得對，活得好</div>
+            <div class="video-title">李院長 - 樂齡飲食全攻略</div>
+          </div>
+          <div class="video-card">
+            <div class="video-thumbnail">醫療衛教動畫</div>
+            <div class="video-title">一分鐘看懂連續血糖監測</div>
+          </div>
+          <div class="video-card">
+            <div class="video-thumbnail">透析中心導覽</div>
+            <div class="video-title">開箱智能透析設備</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 活力醫療機構 All Rights Reserved.</p>
+      </div>
+    </footer>
+    <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
+    <script>
+      // 抓取需要的 DOM 元素
+      const track = document.getElementById("carouselTrack");
+      const slides = Array.from(track.children);
+      const nextBtn = document.getElementById("nextBtn");
+      const prevBtn = document.getElementById("prevBtn");
+      const dots = Array.from(document.querySelectorAll(".dot"));
+      const carouselSection = document.getElementById("carousel-section");
+
+      let currentIndex = 0; // 記錄目前顯示第幾張圖 (從 0 開始)
+      const slideCount = slides.length; // 總共有幾張圖 (4)
+      let autoPlayInterval; // 用來儲存定時器的變數
+
+      // 核心功能：根據索引值移動軌道
+      function moveToSlide(index) {
+        // 處理循環邏輯 (若到最後一張的下一張，回到第一張；反之亦然)
+        if (index < 0) {
+          currentIndex = slideCount - 1;
+        } else if (index >= slideCount) {
+          currentIndex = 0;
+        } else {
+          currentIndex = index;
+        }
+
+        // 計算移動的距離 (-100vw, -200vw 等) 並套用 CSS 變形
+        const amountToMove = -(currentIndex * 100);
+        track.style.transform = `translateX(${amountToMove}vw)`;
+
+        // 更新下方圓點的狀態
+        updateDots(currentIndex);
+      }
+
+      // 更新圓點樣式
+      function updateDots(index) {
+        dots.forEach((dot) => dot.classList.remove("active"));
+        dots[index].classList.add("active");
+      }
+
+      // 定時自動輪播功能
+      function startAutoPlay() {
+        autoPlayInterval = setInterval(() => {
+          moveToSlide(currentIndex + 1);
+        }, 20000); // 4000 毫秒 = 4 秒
+      }
+
+      function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+      }
+
+      // --- 設定事件監聽器 ---
+
+      // 點擊右邊按鈕
+      nextBtn.addEventListener("click", () => {
+        moveToSlide(currentIndex + 1);
+        stopAutoPlay();
+        startAutoPlay(); // 點擊後重新計算時間
+      });
+
+      // 點擊左邊按鈕
+      prevBtn.addEventListener("click", () => {
+        moveToSlide(currentIndex - 1);
+        stopAutoPlay();
+        startAutoPlay();
+      });
+
+      // 點擊圓點切換
+      dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+          moveToSlide(index);
+          stopAutoPlay();
+          startAutoPlay();
+        });
+      });
+
+      // 滑鼠移到圖片上時暫停輪播，移開時恢復 (優化使用者體驗)
+      carouselSection.addEventListener("mouseenter", stopAutoPlay);
+      carouselSection.addEventListener("mouseleave", startAutoPlay);
+
+      // 網頁載入時啟動自動輪播
+      startAutoPlay();
+
+      // =========================================
+      // 首頁：動態載入 JSON 最新消息 (取前 4 筆)
+      // =========================================
+      document.addEventListener("DOMContentLoaded", () => {
+        const indexNewsList = document.getElementById("index-news-list");
+
+        if (indexNewsList) {
+          // 讀取我們之前建立的資料庫
+          fetch("news-data.json")
+            .then((response) => {
+              if (!response.ok) throw new Error("無法讀取資料庫");
+              return response.json();
+            })
+            .then((data) => {
+              indexNewsList.innerHTML = ""; // 清空預設內容
+
+              // 擷取陣列的前 4 筆資料 (最新的 4 篇)
+              const topNews = data.slice(0, 4);
+
+              // 將這 4 筆資料轉換成 HTML 並塞入首頁
+              topNews.forEach((item) => {
+                const liItem = `
+                              <li>
+                                  <div style="display: flex; gap: 10px; align-items: center;">
+                                      <span class="news-tag ${item.tagClass}" style="font-size: 0.75rem; padding: 2px 8px;">${item.category}</span>
+                                      <span class="news-date" style="margin: 0;">${item.date}</span>
+                                  </div>
+                                  
+                                  <a href="article.html?id=${item.id}">${item.title}</a>
+                              </li>
+                          `;
+                indexNewsList.insertAdjacentHTML("beforeend", liItem);
+              });
+            })
+            .catch((error) => {
+              console.error("載入失敗:", error);
+              indexNewsList.innerHTML = "<li>資料載入中或發生錯誤...</li>";
+            });
+        }
+      });
+      // =========================================
+      // 快速回到頁頂功能
+      // =========================================
+      const backToTopBtn = document.getElementById("backToTopBtn");
+
+      if (backToTopBtn) {
+        // 監聽網頁滾動事件
+        window.addEventListener("scroll", () => {
+          // 當往下滾動超過 300px 時，幫按鈕加上 'show' 讓它浮現
+          if (window.scrollY > 300) {
+            backToTopBtn.classList.add("show");
+          } else {
+            // 滾回頂部時，移除 'show' 讓它隱藏
+            backToTopBtn.classList.remove("show");
+          }
+        });
+
+        // 監聽按鈕點擊事件
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth", // 讓畫面像滑行一樣平滑滾動上去，而不是瞬間跳躍
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

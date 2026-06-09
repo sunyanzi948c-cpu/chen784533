@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>最新消息總覽 - 活力醫療中心</title>
+    <link rel="stylesheet" href="style.css?v=7" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container nav-container">
+        <a href="https://homemade0726.neocities.org/" class="logo">
+          <span class="logo-icon">✚</span> 活力醫療
+        </a>
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox" />
+        <label for="menu-toggle" class="menu-btn">☰</label>
+
+        <nav class="nav-links">
+          <a href="#about">關於我們</a>
+          <a href="#hours">門診時間</a>
+
+          <div class="dropdown">
+            <a href="#team" class="dropdown-toggle">醫療團隊 ▾</a>
+
+            <input type="checkbox" id="team-toggle" class="dropdown-checkbox" />
+            <label for="team-toggle" class="dropdown-label">醫療團隊 ▾</label>
+
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a href="#">新陳代謝科</a>
+                <a href="#">神經內科</a>
+                <a href="#">腎臟內科</a>
+                <a href="#">眼科</a>
+                <a href="#">泌尿科</a>
+                <a href="#">肝膽腸胃科</a>
+                <a href="#">心臟內科</a>
+                <a href="#">胸腔內科</a>
+                <a href="#">居家護理師</a>
+                <a href="#">護理衛教師</a>
+                <a href="#">護理師</a>
+                <a href="#">營養衛教師</a>
+                <a href="#">血液透析護理師</a>
+                <a href="#">醫檢師</a>
+                <a href="#">心理師</a>
+                <a href="#">藥師</a>
+              </div>
+            </div>
+          </div>
+
+          <a href="#dialysis">智能透析</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-header">
+      <div class="container">
+        <h1>📢 最新消息</h1>
+        <p>掌握診所最新動態、門診異動與健康活動資訊</p>
+      </div>
+    </div>
+
+    <main class="container page-content">
+      <div class="filter-tabs">
+        <a href="#" class="tab active">全部消息</a>
+        <a href="#" class="tab">門診異動</a>
+        <a href="#" class="tab">疫苗活動</a>
+        <a href="#" class="tab">醫療新知</a>
+      </div>
+
+      <div class="full-news-list" id="news-container"></div>
+
+      <div class="pagination">
+        <a href="#" class="page-btn disabled">上一頁</a>
+        <a href="#" class="page-num active">1</a>
+        <a href="#" class="page-num">2</a>
+        <a href="#" class="page-num">3</a>
+        <a href="#" class="page-btn">下一頁</a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 活力醫療機構 All Rights Reserved.</p>
+      </div>
+    </footer>
+    <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const newsContainer = document.getElementById("news-container");
+        const filterTabs = document.querySelectorAll(".filter-tabs .tab"); // 抓取所有膠囊按鈕
+        let allNewsData = []; // 用來儲存從 JSON 抓下來的所有文章資料
+
+        // 1. 從 JSON 抓取資料 (只抓一次)
+        fetch("news-data.json")
+          .then((response) => {
+            if (!response.ok) throw new Error("無法讀取資料庫檔案");
+            return response.json();
+          })
+          .then((data) => {
+            allNewsData = data; // 把抓到的資料存起來備用
+            renderNews(allNewsData); // 初始載入：顯示全部文章
+          })
+          .catch((error) => {
+            console.error("錯誤原因:", error);
+            newsContainer.innerHTML =
+              '<p style="text-align:center; color:red; padding:20px;">資料載入失敗，請稍後再試</p>';
+          });
+
+        // 2. 負責將資料畫到畫面上的函式
+        function renderNews(newsArray) {
+          newsContainer.innerHTML = ""; // 先清空目前的畫面
+
+          if (newsArray.length === 0) {
+            newsContainer.innerHTML =
+              '<p style="text-align:center; padding:20px; color:#888;">此分類目前尚無消息</p>';
+            return;
+          }
+
+          newsArray.forEach((item) => {
+            const dateParts = item.date.split("/");
+            let yearMonth = item.date;
+            let day = "";
+
+            if (dateParts.length === 3) {
+              yearMonth = `${dateParts[0]} / ${dateParts[1]}`;
+              day = dateParts[2];
+            }
+
+            const newsHTML = `
+                        <a href="article.html?id=${item.id}" class="news-item">
+                            <div class="news-date-badge">
+                                <span class="day">${day}</span>
+                                <span class="year-month">${yearMonth}</span>
+                            </div>
+                            
+                            <div class="news-content-box">
+                                <div class="news-meta">
+                                    <span class="news-tag ${item.tagClass}">${item.category}</span>
+                                </div>
+                                <h3 class="news-title">${item.title}</h3>
+                                <p class="news-excerpt">${item.excerpt}</p>
+                            </div>
+                            
+                            <div class="news-arrow">➔</div>
+                        </a>
+                    `;
+            newsContainer.insertAdjacentHTML("beforeend", newsHTML);
+          });
+        }
+
+        // 3. 監聽膠囊按鈕的點擊事件
+        filterTabs.forEach((tab) => {
+          tab.addEventListener("click", function (e) {
+            e.preventDefault(); // 阻止 <a> 標籤預設的跳頁行為
+
+            // 視覺效果切換：移除所有按鈕的 active，只加在被點擊的這顆上
+            filterTabs.forEach((t) => t.classList.remove("active"));
+            this.classList.add("active");
+
+            // 取得按鈕上的文字 (例如 "門診異動")
+            const categoryToFilter = this.textContent.trim();
+
+            // 邏輯篩選：根據分類過濾資料
+            if (categoryToFilter === "全部消息") {
+              renderNews(allNewsData); // 顯示所有
+            } else {
+              // 只挑出分類名稱完全符合的文章
+              const filteredNews = allNewsData.filter(
+                (item) => item.category === categoryToFilter,
+              );
+              renderNews(filteredNews);
+            }
+          });
+        });
+      });
+
+      // =========================================
+      // 快速回到頁頂功能
+      // =========================================
+      const backToTopBtn = document.getElementById("backToTopBtn");
+
+      if (backToTopBtn) {
+        // 監聽網頁滾動事件
+        window.addEventListener("scroll", () => {
+          // 當往下滾動超過 300px 時，幫按鈕加上 'show' 讓它浮現
+          if (window.scrollY > 300) {
+            backToTopBtn.classList.add("show");
+          } else {
+            // 滾回頂部時，移除 'show' 讓它隱藏
+            backToTopBtn.classList.remove("show");
+          }
+        });
+
+        // 監聽按鈕點擊事件
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth", // 讓畫面像滑行一樣平滑滾動上去，而不是瞬間跳躍
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文章內容 - 活力醫療中心</title>
+    <link rel="stylesheet" href="style.css?v=9" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container nav-container">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">✚</span> 活力醫療
+        </a>
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox" />
+        <label for="menu-toggle" class="menu-btn">☰</label>
+        <nav class="nav-links">
+          <a href="index.html#about">關於我們</a>
+          <a href="index.html#hours">門診時間</a>
+          <div class="dropdown">
+            <a href="index.html#team" class="dropdown-toggle">醫療團隊 ▾</a>
+            <input type="checkbox" id="team-toggle" class="dropdown-checkbox" />
+            <label for="team-toggle" class="dropdown-label">醫療團隊 ▾</label>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a href="#">新陳代謝科</a><a href="#">神經內科</a
+                ><a href="#">腎臟內科</a><a href="#">眼科</a>
+                <a href="#">泌尿科</a><a href="#">肝膽腸胃科</a
+                ><a href="#">心臟內科</a><a href="#">胸腔內科</a>
+                <a href="#">居家護理師</a><a href="#">護理衛教師</a
+                ><a href="#">護理師</a><a href="#">營養衛教師</a>
+                <a href="#">血液透析護理師</a><a href="#">醫檢師</a
+                ><a href="#">心理師</a><a href="#">藥師</a>
+              </div>
+            </div>
+          </div>
+          <a href="index.html#dialysis">智能透析</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      <article class="article-container" id="article-container">
+        <a href="javascript:history.back()" class="back-btn">❮ 返回列表</a>
+
+        <div
+          id="loading-message"
+          style="text-align: center; padding: 50px; color: #666">
+          資料載入中，請稍候...
+        </div>
+
+        <div id="article-content-wrapper" style="display: none">
+          <header class="article-header">
+            <div class="news-meta">
+              <span id="detail-tag" class="news-tag">分類</span>
+              <span id="detail-date" class="news-date">日期</span>
+            </div>
+            <h1 id="detail-title" class="article-title">文章標題</h1>
+          </header>
+
+          <div id="detail-content" class="article-body"></div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 活力醫療機構 All Rights Reserved.</p>
+      </div>
+    </footer>
+    <div id="image-lightbox" class="lightbox">
+      <span class="lightbox-close">&times;</span>
+      <img class="lightbox-content" id="lightbox-img" src="" alt="放大圖片" />
+    </div>
+
+    <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // 1. 從網址列獲取文章 ID (例如 ?id=2)
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get("id");
+
+        const loadingMsg = document.getElementById("loading-message");
+        const articleWrapper = document.getElementById(
+          "article-content-wrapper",
+        );
+
+        // 如果網址沒有帶 ID，顯示錯誤
+        if (!articleId) {
+          loadingMsg.innerHTML =
+            '<span style="color:red;">找不到指定的文章，請回上一頁重新點擊。</span>';
+          return;
+        }
+
+        // 2. 讀取 JSON 資料庫
+        fetch("news-data.json?v=" + new Date().getTime())
+          .then((response) => {
+            if (!response.ok) throw new Error("無法讀取資料庫檔案");
+            return response.json();
+          })
+          .then((data) => {
+            // 3. 在資料庫中尋找符合 ID 的那篇文章
+            const article = data.find((item) => item.id == articleId);
+
+            if (article) {
+              // 4. 找到文章了！把資料塞進對應的 HTML 標籤裡
+              document.getElementById("detail-title").textContent =
+                article.title;
+              document.getElementById("detail-date").textContent = article.date;
+
+              const tagEl = document.getElementById("detail-tag");
+              tagEl.textContent = article.category;
+              tagEl.className = `news-tag ${article.tagClass}`; // 套用原本的顏色標籤
+
+              // 1. 建立一個變數用來組合最終要顯示的 HTML 內容
+              let finalContent = "";
+
+              // 2. 自動檢查 JSON 裡面有沒有設定 "image" 欄位
+              if (article.image && article.image.trim() !== "") {
+                // 將高度改為自動(height: auto)確保文字不被咖掉，並加入放大提示文字
+                finalContent += `
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <img src="${article.image}" class="zoomable-img" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);" alt="文章封面大圖">
+                    <div style="font-size: 0.9rem; color: #888; margin-top: 10px; font-weight: bold;">
+                        🔍 點擊圖片可全螢幕放大觀看
+                    </div>
+                </div>`;
+              }
+
+              // 3. 接上原本的 `"content"` 文章內文
+              finalContent += article.content || `<p>${article.excerpt}</p>`;
+
+              // 4. 最後將組合好的全部內容塞入網頁容器中
+              document.getElementById("detail-content").innerHTML =
+                finalContent;
+
+              // 隱藏 Loading，顯示文章
+              loadingMsg.style.display = "none";
+              articleWrapper.style.display = "block";
+
+              // =========================================
+              // 補回：動態圖片放大燈箱邏輯
+              // =========================================
+              const detailContent = document.getElementById("detail-content");
+              const lightbox = document.getElementById("image-lightbox");
+              const lightboxImg = document.getElementById("lightbox-img");
+              const lightboxClose = document.querySelector(".lightbox-close");
+
+              if (lightbox && detailContent) {
+                // 監聽文章內文區塊，當點擊到 zoomable-img 時放大
+                detailContent.addEventListener("click", (e) => {
+                  if (e.target.classList.contains("zoomable-img")) {
+                    lightbox.style.display = "flex";
+                    lightboxImg.src = e.target.src;
+                  }
+                });
+
+                // 點擊右上角叉叉關閉
+                lightboxClose.addEventListener("click", () => {
+                  lightbox.style.display = "none";
+                });
+
+                // 點擊黑底任何地方也能關閉
+                lightbox.addEventListener("click", (e) => {
+                  if (e.target === lightbox) {
+                    lightbox.style.display = "none";
+                  }
+                });
+              }
+            } else {
+              // 找不到該 ID 的文章
+              loadingMsg.innerHTML =
+                '<span style="color:red;">文章已下架或不存在。</span>';
+            }
+          })
+          .catch((error) => {
+            console.error("讀取錯誤:", error);
+            loadingMsg.innerHTML =
+              '<span style="color:red;">系統異常，無法載入文章內容。</span>';
+          });
+      });
+
+      // =========================================
+      // 快速回到頁頂功能
+      // =========================================
+      const backToTopBtn = document.getElementById("backToTopBtn");
+
+      if (backToTopBtn) {
+        // 監聽網頁滾動事件
+        window.addEventListener("scroll", () => {
+          // 當往下滾動超過 300px 時，幫按鈕加上 'show' 讓它浮現
+          if (window.scrollY > 300) {
+            backToTopBtn.classList.add("show");
+          } else {
+            // 滾回頂部時，移除 'show' 讓它隱藏
+            backToTopBtn.classList.remove("show");
+          }
+        });
+
+        // 監聽按鈕點擊事件
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth", // 讓畫面像滑行一樣平滑滾動上去，而不是瞬間跳躍
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

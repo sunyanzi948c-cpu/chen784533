@@ -1,0 +1,1127 @@
+/* =========================================
+   變數與基本設定
+========================================= */
+:root {
+    --primary-color: #00A896;
+    /* 醫療感明亮藍綠色 */
+    --secondary-color: #F0A500;
+    /* 活潑朝氣的橙黃色 */
+    --bg-color: #F7FBFC;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --white: #FFFFFF;
+    --border-radius: 16px;
+    /* 圓潤感帶來親和力 */
+    --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Helvetica Neue", Arial, "LiHei Pro", "微軟正黑體", sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.3s;
+}
+
+/* =========================================
+   導覽列 (Navbar)
+========================================= */
+.navbar {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-icon {
+    color: var(--secondary-color);
+    font-size: 1.8rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 8px 0;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* 導覽列底線動畫 (排除下拉選單內的連結) */
+.nav-links>a::after,
+.dropdown>a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.nav-links>a:hover::after,
+.dropdown>a:hover::after {
+    width: 100%;
+}
+
+.menu-checkbox,
+.menu-btn {
+    display: none;
+}
+
+/* =========================================
+   首頁：最新消息佈告欄列表優化 (全站通用電腦版預設)
+========================================= */
+.news-list {
+    list-style: none;
+    /* 移除預設的黑點 */
+    padding-left: 0;
+}
+
+.news-list li {
+    padding: 15px 0;
+    /* 每則新聞的上下間距 */
+    border-bottom: 1px dashed #EAEAEA;
+    /* 加上淡淡的虛線分隔線 */
+}
+
+.news-list li:last-child {
+    border-bottom: none;
+    /* 最後一筆不要底線 */
+}
+
+.news-list a {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    /* 關鍵：電腦版與全站同步改成高對比深灰色 */
+    font-weight: 600;
+    /* 字體稍微加粗，增加重量感 */
+    display: block;
+    margin-top: 8px;
+    transition: color 0.3s;
+}
+
+/* 滑鼠游標移過去時的互動效果 */
+.news-list a:hover {
+    color: var(--primary-color);
+    /* 懸停時變回品牌藍綠色 */
+}
+/* =========================================
+   導覽列：醫療團隊下拉選單 (Dropdown)
+========================================= */
+/* 隱藏手機版專用的摺疊開關 */
+.dropdown-checkbox,
+.dropdown-label {
+    display: none;
+}
+
+.dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.dropdown-menu {
+    display: none;
+    /* 預設隱藏 */
+    position: absolute;
+    top: 100%;
+    /* 貼齊導覽列底部 */
+    left: -50px;
+    /* 微調位置避免超出螢幕 */
+    background-color: var(--white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    z-index: 1001;
+    width: 320px;
+    /* 設定選單寬度，容納兩欄 */
+    border-top: 3px solid var(--primary-color);
+}
+
+/* 電腦版：滑鼠移入時顯示選單 */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 下拉選單內的網格排版 (2欄) */
+.dropdown-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* 覆寫 nav-links 預設的 a 樣式，使其適合選單 */
+.dropdown-grid a {
+    font-size: 0.95rem;
+    font-weight: normal;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: var(--text-main);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-grid a::after {
+    display: none;
+    /* 移除原本的底線動畫 */
+}
+
+.dropdown-grid a:hover {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+}
+
+
+/* =========================================
+   主視覺跑馬燈 (Hero Carousel - JS控制版)
+========================================= */
+.hero-carousel {
+    position: relative;
+    /* 作為按鈕與圓點的定位基準 */
+    width: 100%;
+    overflow: hidden;
+    /* 隱藏超出範圍的圖片 */
+}
+
+/* 移除 CSS 原生的卷軸設定，改由 JS 控制 */
+.carousel-track {
+    display: flex;
+    width: max-content;
+    transition: transform 0.5s ease-in-out;
+    /* 關鍵：滑動的過渡動畫 */
+}
+
+.slide {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 1920px;
+}
+
+/* === 左右切換按鈕 === */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 15px 20px;
+    cursor: pointer;
+    z-index: 10;
+    /* 確保按鈕在圖片上方 */
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+/* === 底部圓點指示器 === */
+.carousel-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    /* 讓白色圓點在白底圖片上也看清楚 */
+}
+
+.dot.active {
+    background-color: var(--primary-color);
+}
+
+/* =========================================
+   佈告欄區塊 (Boards Section)
+========================================= */
+.boards-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 60px 0;
+}
+
+.board {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--box-shadow);
+}
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--bg-color);
+    padding-bottom: 15px;
+}
+
+.board-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-main);
+}
+
+.more-link {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    background: var(--bg-color);
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.more-link:hover {
+    background: var(--secondary-color);
+    color: var(--white);
+}
+
+/* =========================================
+   分類標籤：現代化膠囊造型 (Capsule Tabs)
+========================================= */
+.filter-tabs {
+    display: flex;
+    background-color: #EBF3F6;
+    /* 溫潤的淺灰藍色膠囊底軌 */
+    padding: 6px;
+    border-radius: 50px;
+    /* 核心：超大圓弧創造完美膠囊外觀 */
+    width: fit-content;
+    margin: 0 auto 35px auto;
+    /* 畫面置中，並與下方列表拉開呼吸空間 */
+    gap: 4px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.04);
+    /* 內陰影讓軌道呈現微凹陷的精緻立體感 */
+}
+
+.tab {
+    padding: 10px 24px;
+    border-radius: 50px;
+    /* 每個選項按鈕也都是膠囊型 */
+    color: var(--text-muted);
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+    white-space: nowrap;
+    text-decoration: none;
+    /* 確保沒有底線 */
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 讓切換動態呈現絲滑的過渡感 */
+}
+
+/* 滑鼠游標移過去的微互動（排除已選中的項目） */
+.tab:hover:not(.active) {
+    color: var(--primary-color);
+    background-color: rgba(0, 168, 150, 0.08);
+    /* 淡淡的半透明主色 */
+}
+
+/* 當標籤被點選、激活時的膠囊樣式 */
+.tab.active {
+    background-color: var(--primary-color);
+    /* 活力藍綠色填滿 */
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(0, 168, 150, 0.25);
+    /* 溫和的外發光提升層級 */
+}
+
+/* =========================================
+   手機版響應式微調 (Capsule RWD)
+========================================= */
+@media (max-width: 768px) {
+    .filter-tabs {
+        width: 100%;
+        /* 手機版寬度撐滿 */
+        max-width: 100%;
+        overflow-x: auto;
+        /* 關鍵：項目過多時，在手機上允許左右滑動瀏覽 */
+        flex-wrap: nowrap;
+        /* 強制按鈕們乖乖排成一列不換行 */
+        justify-content: flex-start;
+        /* 靠左對齊方便滑動 */
+        padding: 5px;
+        scrollbar-width: none;
+        /* 隱藏 Firefox 的捲軸 */
+    }
+
+    /* 隱藏 Chrome/Safari 的手機原生捲軸，維持簡潔 */
+    .filter-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab {
+        padding: 8px 18px;
+        /* 手機版稍微縮小內距 */
+        font-size: 0.95rem;
+    }
+}
+/* =========================================
+   最新消息列表頁專用 (News Archive - 減壓舒適版)
+========================================= */
+.full-news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    /* 加大每則消息之間的間距 */
+}
+
+.news-item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background-color: var(--white);
+    padding: 30px;
+    /* 增加卡片內部的呼吸空間 */
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    /* 非常柔和的陰影 */
+    border: 1px solid #F0F4F8;
+    /* 加上極淺的邊框增加質感 */
+    transition: transform 0.3s, box-shadow 0.3s;
+    gap: 25px;
+    /* 日期徽章與內文的間距 */
+    text-decoration: none;
+}
+
+.news-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 168, 150, 0.1);
+}
+
+/* 獨立出來的日期徽章 */
+.news-date-badge {
+    flex-shrink: 0;
+    text-align: center;
+    background-color: var(--bg-color);
+    padding: 15px 20px;
+    border-radius: 16px;
+    color: var(--primary-color);
+    min-width: 100px;
+    border: 1px solid #E0F7FA;
+}
+
+.news-date-badge .day {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: bold;
+    line-height: 1.1;
+    font-family: 'Arial Black', sans-serif;
+}
+
+.news-date-badge .year-month {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
+/* 內文區塊 */
+.news-content-box {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.news-meta {
+    margin-bottom: 12px;
+}
+
+.news-tag {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: var(--white);
+    font-weight: bold;
+}
+
+.news-title {
+    font-size: 1.35rem;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    line-height: 1.4;
+    transition: color 0.2s;
+}
+
+.news-item:hover .news-title {
+    color: var(--primary-color);
+}
+
+.news-excerpt {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* 限制摘要行數 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 導覽箭頭 */
+.news-arrow {
+    align-self: center;
+    font-size: 1.5rem;
+    color: #D1D8E0;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.news-item:hover .news-arrow {
+    color: var(--secondary-color);
+    transform: translateX(5px);
+}
+
+/* 手機版響應式微調 */
+@media (max-width: 768px) {
+    .news-item {
+        flex-direction: column;
+        /* 手機版改為垂直堆疊 */
+        padding: 25px 20px;
+        gap: 15px;
+    }
+
+    .news-date-badge {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 15px;
+        min-width: auto;
+        width: fit-content;
+    }
+
+    .news-date-badge .day {
+        font-size: 1.5rem;
+    }
+
+    .news-date-badge .year-month {
+        margin-top: 0;
+    }
+
+    .news-arrow {
+        display: none;
+        /* 手機螢幕較小，隱藏箭頭 */
+    }
+}
+
+/* 衛教專區網格卡片 */
+.edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.edu-card {
+    background: var(--bg-color);
+    padding: 20px;
+    border-radius: 12px;
+    display: block;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.edu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 168, 150, 0.2);
+}
+
+.edu-tag {
+    display: inline-block;
+    background: var(--primary-color);
+    color: var(--white);
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.edu-card h3 {
+    color: var(--text-main);
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+/* =========================================
+   影片專區 (Video Section)
+========================================= */
+.video-section {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 60px;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.video-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-color);
+}
+
+.video-thumbnail {
+    background: #4A4A4A;
+    color: white;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.video-thumbnail:hover {
+    background: var(--primary-color);
+}
+
+.video-title {
+    padding: 15px;
+    font-weight: bold;
+    color: var(--text-main);
+    text-align: center;
+}
+
+/* =========================================
+   頁腳 (Footer)
+========================================= */
+.footer {
+    background: var(--text-main);
+    color: var(--white);
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 40px;
+}
+
+/* =========================================
+   響應式設計 (RWD - 平板 900px)
+========================================= */
+@media (max-width: 900px) {
+    .boards-section {
+        grid-template-columns: 1fr;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   響應式設計 (RWD - 手機 768px)
+========================================= */
+@media (max-width: 768px) {
+
+    /* 手機版導覽列：漢堡選單實作 */
+    .menu-btn {
+        display: block;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--primary-color);
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        flex-direction: column;
+        text-align: center;
+        gap: 0;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 基本導覽列連結樣式 */
+    .nav-links>a {
+        padding: 15px 0;
+        border-bottom: 1px solid #F0F0F0;
+        width: 100%;
+    }
+
+    .menu-checkbox:checked~.nav-links {
+        display: flex;
+    }
+
+    /* =========================================
+       手機版：醫療團隊下拉選單改為摺疊設計
+    ========================================= */
+    .dropdown {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .dropdown .dropdown-toggle {
+        display: none;
+        /* 隱藏電腦版的 hover 連結 */
+    }
+
+    .dropdown-label {
+        display: block;
+        width: 100%;
+        padding: 15px 0;
+        border-bottom: 1px solid #F0F0F0;
+        font-weight: 600;
+        cursor: pointer;
+        color: var(--text-main);
+        font-size: 1.1rem;
+    }
+
+    /* 將選單改為靜態排版，不再懸浮 */
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        background-color: #F8F9FA;
+        padding: 10px 15px;
+        border-radius: 0;
+        border-top: none;
+        display: none;
+        /* 由 checkbox 控制顯示 */
+    }
+
+    /* 手機版下拉選單內的項目改為單欄 */
+    .dropdown-grid {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .dropdown-grid a {
+        padding: 10px 0;
+        border-bottom: 1px dashed #E0E0E0;
+        border-radius: 0;
+    }
+
+    .dropdown-grid a:last-child {
+        border-bottom: none;
+    }
+    /* 取消手機版的 hover 展開，避免與點擊事件衝突 (解決收不回來的問題) */
+    .dropdown:hover .dropdown-menu {
+        display: none;
+    }
+
+    /* 關鍵：當隱藏的 checkbox 被勾選時，展開醫療團隊子選單 */
+    .dropdown-checkbox:checked ~ .dropdown-menu {
+        display: block;
+    }
+    /* 關鍵：當隱藏的 checkbox 被勾選時，展開醫療團隊子選單 */
+    .dropdown-checkbox:checked~.dropdown-menu {
+        display: block;
+    }
+
+    /* =========================================
+       其他手機版微調
+    ========================================= */
+    .slide-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .edu-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   單篇文章內頁專用 (Article Detail)
+========================================= */
+.article-container {
+    max-width: 800px;
+    /* 限制寬度，提升長文閱讀體驗 */
+    margin: 40px auto;
+    background-color: var(--white);
+    padding: 40px 50px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.back-btn {
+    display: inline-block;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    padding: 8px 15px;
+    background-color: var(--bg-color);
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    color: var(--white);
+    background-color: var(--primary-color);
+}
+
+.article-header {
+    border-bottom: 2px solid var(--bg-color);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.article-title {
+    font-size: 2rem;
+    color: var(--text-main);
+    line-height: 1.4;
+    margin-top: 15px;
+}
+
+/* 內文排版優化 */
+.article-body {
+    color: #444;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    /* 加大行距，眼睛不疲勞 */
+}
+/* 隱藏文章內文清單的預設黑點，並優化間距 */
+.article-body ul {
+    list-style: none;
+    /* 移除瀏覽器預設的黑點 */
+    padding-left: 0;
+    /* 移除預設的左側縮排，讓文字對齊標題 */
+    margin-bottom: 20px;
+    /* 與下一個段落保持距離 */
+}
+
+.article-body li {
+    margin-bottom: 10px;
+    /* 讓每個清單項目之間多一點呼吸空間，不擠在一起 */
+    line-height: 1.6;
+}
+.article-body p {
+    margin-bottom: 20px;
+}
+
+.article-body h3 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin: 30px 0 15px 0;
+    border-left: 4px solid var(--secondary-color);
+    padding-left: 10px;
+}
+
+.article-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+/* 響應式微調 */
+@media (max-width: 768px) {
+    .article-container {
+        padding: 25px 20px;
+        margin: 20px auto;
+    }
+
+    .article-title {
+        font-size: 1.5rem;
+    }
+    
+    
+  /* =========================================
+       手機版：首頁佈告欄標題與列表排版優化
+    ========================================= */
+   .board-header {
+      gap: 10px;
+      /* 確保標題和按鈕之間有安全距離 */
+  }
+   .board {
+    padding: 20px 15px;
+   }
+   .board-header h2 {
+      font-size: 1.3rem;
+      /* 手機版稍微縮小一點標題字體 */
+      white-space: nowrap;
+      /* 關鍵1：強制標題絕對不換行 */
+      margin-bottom: 0;
+  }
+
+  .more-link {
+      white-space: nowrap;
+      /* 關鍵2：強制按鈕文字不換行 */
+      flex-shrink: 0;
+      /* 關鍵3：保護按鈕，絕對不允許被螢幕擠扁 */
+      padding: 5px 12px;
+      /* 稍微縮小按鈕內距讓它更精緻 */
+      font-size: 0.85rem;
+  }
+
+  /* 順便優化首頁的新聞列表，讓手機版更好閱讀 */
+  .news-list li {
+      padding: 12px 0;
+      /* 手機版稍微縮緊上下間距 */
+  }
+
+  .news-list .news-date {
+      background-color: var(--bg-color);
+      /* 給日期一個淡淡的底色標籤感 */
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+  }
+
+  .news-list a {
+      font-size: 1rem;
+      /* 手機版字體稍微縮小一點點，符合手機螢幕比例 */
+  }
+}
+
+/* =========================================
+   最新消息標籤顏色設定 (Tag Colors)
+========================================= */
+.news-tag {
+    display: inline-block;
+    /* 確保標籤能撐開內距與圓角 */
+    color: #FFFFFF !important;
+    /* 強制文字為白色 */
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+/* 各分類的專屬背景色 */
+.tag-orange {
+    background-color: #F0A500;
+}
+
+/* 亮橘色 (門診異動) */
+.tag-blue {
+    background-color: #2D9CDB;
+}
+
+/* 柔和藍色 (疫苗活動、醫療新知) */
+.tag-green {
+    background-color: #00A896;
+}
+
+/* 醫療藍綠色 (營養衛教、預防醫學) */
+
+/* =========================================
+   快速回到頁頂按鈕 (Back to Top)
+========================================= */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    /* 使用醫療藍綠色 */
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    /* 變成完美的圓形 */
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 168, 150, 0.4);
+    cursor: pointer;
+    z-index: 9999;
+    /* 確保它永遠浮在最上層 */
+
+    /* 預設隱藏並往下沉的動畫設定 */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* 讓裡面的箭頭絕對置中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 當加上 .show 類別時，按鈕浮現 */
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* 電腦版滑鼠移過去的互動效果 */
+.back-to-top:hover {
+    background-color: var(--secondary-color);
+    /* 變為活潑的橙黃色 */
+    transform: translateY(-5px) scale(1.05);
+    /* 稍微往上浮起並變大 */
+    box-shadow: 0 6px 20px rgba(240, 165, 0, 0.4);
+}
+
+/* 手機版微調 (讓按鈕稍微縮小，避免擋住太多內文) */
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+}
+
+/* =========================================
+   圖片放大燈箱 (Lightbox) 與互動樣式
+========================================= */
+/* 暗示圖片可點擊的互動效果 */
+.zoomable-img {
+    cursor: zoom-in;
+    /* 滑鼠游標變成放大鏡 */
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.zoomable-img:hover {
+    transform: scale(1.02);
+    /* 滑鼠移過去微微浮起放大 */
+    filter: brightness(0.95);
+    /* 稍微變暗提示可點擊 */
+}
+
+/* 燈箱全螢幕黑底 */
+.lightbox {
+    display: none;
+    /* 預設隱藏，由 JS 控制顯示為 flex */
+    position: fixed;
+    z-index: 10000;
+    /* 確保浮在網頁所有東西的最上面 */
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    /* 漂亮的半透明深色背景 */
+    justify-content: center;
+    align-items: center;
+}
+
+/* 放大的圖片本身 */
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    /* 確保高圖片不會超出螢幕 */
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    object-fit: contain;
+    /* 完整顯示不裁切 */
+    animation: zoomIn 0.3s ease;
+    /* 彈出的動畫 */
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 右上角的巨大關閉按鈕 */
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #ffffff;
+    font-size: 50px;
+    /* 超大按鈕 */
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+    user-select: none;
+    z-index: 10001;
+}
+
+.lightbox-close:hover {
+    color: var(--secondary-color);
+    /* 滑鼠移過去變成醒目的橘黃色 */
+}
