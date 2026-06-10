@@ -1127,17 +1127,55 @@ a {
 }
 
 /* =========================================
+   手機版 (行動裝置) 響應式排版優化 (RWD)
+========================================= */
+
+/* 當螢幕寬度小於 768 像素時啟用以下語法 */
+@media screen and (max-width: 768px) {
+
+    /* 強制將原本左右並排的「關於介紹/智能透析」區塊堆疊起來 */
+    .about-intro {
+        flex-direction: column;
+        /* 改為垂直堆疊 */
+        gap: 30px;
+        /* 文字和圖片中間的間距稍微縮小 */
+    }
+
+    /* 讓文字和圖片區塊自動取全滿寬度 */
+    .intro-text,
+    .intro-image {
+        flex-basis: 100%;
+        /* 強制為 100% 寬度 */
+        width: 100%;
+        /* 確保寬度不破表 */
+    }
+
+    /* 針對您貼上的這張大圖 524.jpg 進行極致瘦身 */
+    .intro-image img {
+        width: 100%;
+        /* 圖片寬度依循父層全滿 */
+        max-width: 100%;
+        /* 確保永遠不會「爆」出去 */
+        height: auto;
+        /* 保持圖片比例不變形 */
+        object-fit: contain;
+        /* 讓圖片完整呈現，不被裁切 */
+    }
+}
+
+/* =========================================
    關於我們 (About Us) 現代化美化樣式
 ========================================= */
 .about-section {
     padding: 60px 0;
 }
 
+/* ✅ 修正後的全滿背景語法 */
 .bg-light {
     background-color: #f8fafc;
-    margin: 0 -20px;
-    padding: 60px 20px;
-    border-radius: 16px;
+    padding: 60px 0;
+    /* 只要設定上下間距，左右交給裡面的 container */
+    /* Remove negative margin, border-radius */
 }
 
 .section-title {
