@@ -16,7 +16,7 @@
         <label for="menu-toggle" class="menu-btn">☰</label>
 
         <nav class="nav-links">
-          <a href="#about">關於我們</a>
+          <a href="about.html">關於我們</a>
           <a href="#hours">門診時間</a>
 
           <div class="dropdown">
