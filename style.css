@@ -1499,3 +1499,43 @@ a {
   line-height: 1;
   top: 2px;
 }
+
+/* =========================================
+   手機版 (行動裝置) 終極防跑版語法
+========================================= */
+@media screen and (max-width: 768px) {
+
+    /* 1. 讓所有的雙欄排版在手機上變成「上下堆疊」 */
+    .about-intro,
+    .dean-container,
+    .contact-grid {
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    /* 2. 強制所有區塊的寬度不能超過螢幕的 100% */
+    .intro-text,
+    .intro-image,
+    .dean-image,
+    .dean-info,
+    .contact-info,
+    .contact-map {
+        flex-basis: 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. 圖片強制自動縮放，絕對不能超過外框 */
+    .intro-image img,
+    .dean-image img {
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: cover !important;
+    }
+
+    /* 4. 微調三大優勢卡片，確保小手機也能完美滿版 */
+    .vision-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
