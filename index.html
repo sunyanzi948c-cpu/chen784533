@@ -95,24 +95,8 @@
             <h2>💡 衛教專區</h2>
             <a href="education.html" class="more-link">看更多</a>
           </div>
-          <div class="edu-grid">
-            <a href="article.html?id=101" class="edu-card">
-              <div class="edu-tag">慢性病</div>
-              <h3>糖尿病的日常飲食控制原則</h3>
-            </a>
-            <a href="article.html?id=102" class="edu-card">
-              <div class="edu-tag">腎臟科</div>
-              <h3>如何保護腎臟？這五件事不可不知</h3>
-            </a>
-            <a href="#" class="edu-card">
-              <div class="edu-tag">預防醫學</div>
-              <h3>長者防跌指南，居家環境這樣改</h3>
-            </a>
-            <a href="#" class="edu-card">
-              <div class="edu-tag">心臟科</div>
-              <h3>認識高血壓，沉默的健康殺手</h3>
-            </a>
-          </div>
+          
+          <div class="edu-grid" id="index-edu-grid"></div>
         </div>
       </section>
 
@@ -265,6 +249,60 @@
             });
         }
       });
+
+      // =========================================
+      // 首頁：動態載入 JSON 衛教專區 (自動取最新 4 筆)
+      // =========================================
+      const indexEduGrid = document.getElementById("index-edu-grid");
+
+      if (indexEduGrid) {
+        // 定義我們要抓取的衛教分類名稱
+        const educationCategories = [
+          "糖尿病專區",
+          "腎臟專區",
+          "代謝症候群專區",
+          "護理專區",
+          "藥物專區",
+          "眼睛保健專區",
+          "心血管專區"
+        ];
+
+        // 讀取全站共用的 JSON 資料庫 (加上時間戳記徹底打破快取)
+        fetch("news-data.json?v=" + new Date().getTime())
+          .then((response) => {
+            if (!response.ok) throw new Error("無法讀取資料庫");
+            return response.json();
+          })
+          .then((data) => {
+            indexEduGrid.innerHTML = ""; // 先清空骨架
+
+            // 1. 【關鍵過濾】：從資料庫中，只挑選出分類屬於「衛教專區」的文章
+            const eduArticles = data.filter(item => educationCategories.includes(item.category));
+
+            // 2. 【擷取前 4 筆】：只拿最新上傳的前 4 篇衛教文章
+            const topEdu = eduArticles.slice(0, 4);
+
+            // 3. 【動態生成卡片】：將資料轉換為 HTML 塞入首頁
+            topEdu.forEach((item) => {
+              const cardHTML = `
+                <a href="article.html?id=${item.id}" class="edu-card">
+                  <div class="edu-tag ${item.tagClass}">${item.category}</div>
+                  <h3>${item.title}</h3>
+                </a>
+              `;
+              indexEduGrid.insertAdjacentHTML("beforeend", cardHTML);
+            });
+
+            // 防呆機制：如果 JSON 裡目前沒有任何衛教文章
+            if (topEdu.length === 0) {
+              indexEduGrid.innerHTML = "<p style='color:#888; grid-column: 1/-1; text-align:center; padding: 20px;'>目前暫無衛教文章發表</p>";
+            }
+          })
+          .catch((error) => {
+            console.error("衛教專區載入失敗:", error);
+            indexEduGrid.innerHTML = "<p style='color:red; grid-column: 1/-1; text-align:center; padding: 20px;'>衛教專區載入中或發生異常...</p>";
+          });
+      }
       // =========================================
       // 快速回到頁頂功能
       // =========================================

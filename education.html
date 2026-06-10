@@ -61,14 +61,14 @@
 
     <main class="container page-content">
       <div class="filter-tabs">
-        <a href="#" class="tab active">全部消息</a>
-        <a href="#" class="tab">糖尿病專區</a>
-        <a href="#" class="tab">代謝症候群專區</a>
-        <a href="#" class="tab">腎臟專區</a>
-        <a href="#" class="tab">護理專區</a>
-        <a href="#" class="tab">藥物專區</a>
-        <a href="#" class="tab">眼睛保健專區</a>
-        <a href="#" class="tab">心血管專區</a>
+        <a href="#" class="tab active" data-filter="all">全部消息</a>
+        <a href="#" class="tab" data-filter="糖尿病專區">糖尿病專區</a>
+        <a href="#" class="tab" data-filter="代謝症候群專區">代謝症候群專區</a>
+        <a href="#" class="tab" data-filter="腎臟專區">腎臟專區</a>
+        <a href="#" class="tab" data-filter="護理專區">護理專區</a>
+        <a href="#" class="tab" data-filter="藥物專區">藥物專區</a>
+        <a href="#" class="tab" data-filter="眼睛保健專區">眼睛保健專區</a>
+        <a href="#" class="tab" data-filter="心血管專區">心血管專區</a>
       </div>
 
       <div class="full-news-list" id="news-container"></div>
@@ -90,7 +90,7 @@
     <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const fullNewsList = document.getElementById("full-news-list");
+        const fullNewsList = document.getElementById("news-container");
         const tabs = document.querySelectorAll(".tab");
         let allArticles = []; // 用來儲存從 JSON 抓來的所有「衛教」文章
 
