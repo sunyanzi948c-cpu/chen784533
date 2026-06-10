@@ -1315,3 +1315,149 @@ a {
     color: #444;
     font-size: 1.05rem;
 }
+
+/* =========================================
+   門診時間 (Clinic Hours) 專屬樣式
+========================================= */
+.hours-section {
+  padding: 40px 0;
+}
+
+/* 讓表格在手機螢幕上可左右滑動，不破壞版面 */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  background-color: white;
+}
+
+/* 門診時刻表主體 */
+.hours-table {
+  width: 100%;
+  min-width: 800px; /* 確保縮小視窗時，格子不會被擠到變形 */
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.hours-table th, 
+.hours-table td {
+  padding: 15px 10px;
+  border: 1px solid #eaeaea;
+  vertical-align: middle;
+}
+
+/* 表頭設計 */
+.hours-table thead th {
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 18px 10px;
+}
+
+.hours-table thead th.time-col-header {
+  background-color: var(--secondary-color);
+}
+
+/* 時間直欄 */
+.time-col {
+  background-color: #f8fafc;
+  color: #333;
+  width: 120px;
+}
+
+.time-text {
+  font-size: 0.9rem;
+  color: #666;
+  display: block;
+  margin-top: 5px;
+}
+
+/* 醫師名稱與科別標籤 */
+.doc-name {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: #333;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.dept-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* 各科別專屬顏色 (可依需求自行增減) */
+.badge-kidney { background-color: #20c997; } /* 腎臟科 - 綠色 */
+.badge-meta { background-color: #fd7e14; }   /* 新陳代謝 - 橘色 */
+.badge-heart { background-color: #dc3545; }  /* 心臟科 - 紅色 */
+
+/* 儲存格 Hover 特效 */
+.hours-table tbody td:not(.time-col):not(.holiday-col):hover {
+  background-color: #f0f7f9;
+  cursor: default;
+}
+
+/* 假日直欄 (星期日) */
+.holiday-col {
+  background-color: #fff5f5 !important;
+  color: #dc3545;
+}
+.vertical-center {
+  vertical-align: middle !important;
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+}
+
+/* =========================================
+   看診與掛號須知
+========================================= */
+.notice-section {
+  padding: 20px 0 60px 0;
+}
+
+.notice-box {
+  background-color: #fff9e6; /* 溫暖的淺黃色底 */
+  border-left: 5px solid #ffc107;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.notice-box h3 {
+  color: #856404;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.notice-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.notice-list li {
+  margin-bottom: 12px;
+  line-height: 1.7;
+  color: #555;
+  font-size: 1.05rem;
+  position: relative;
+  padding-left: 20px;
+}
+
+/* 自訂列表圓點 */
+.notice-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ffc107;
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1;
+  top: 2px;
+}

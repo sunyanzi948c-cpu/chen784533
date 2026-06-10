@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>門診時間 - 活力醫療中心</title>
+    <link rel="stylesheet" href="style.css?v=12" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container nav-container">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">✚</span> 活力醫療
+        </a>
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox" />
+        <label for="menu-toggle" class="menu-btn">☰</label>
+
+        <nav class="nav-links">
+          <a href="about.html">關於我們</a>
+          <a href="hours.html" class="active">門診時間</a>
+          <div class="dropdown">
+            <a href="index.html#team" class="dropdown-toggle">醫療團隊 ▾</a>
+            <input type="checkbox" id="team-toggle" class="dropdown-checkbox" />
+            <label for="team-toggle" class="dropdown-label">醫療團隊 ▾</label>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a href="#">新陳代謝科</a><a href="#">神經內科</a>
+                <a href="#">腎臟內科</a><a href="#">眼科</a>
+                <a href="#">泌尿科</a><a href="#">肝膽腸胃科</a>
+                <a href="#">心臟內科</a><a href="#">胸腔內科</a>
+              </div>
+            </div>
+          </div>
+          
+          <a href="index.html#dialysis">智能透析</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-header">
+      <div class="container">
+        <h1>📅 門診時間</h1>
+        <p>提供多專科聯合門診，請先確認醫師看診時段，節省您寶貴的候診時間</p>
+      </div>
+    </div>
+
+    <main class="container page-content">
+      
+      <section class="hours-section">
+        <h2 class="section-title text-center">每週門診時刻表</h2>
+        
+        <div class="table-responsive shadow">
+          <table class="hours-table">
+            <thead>
+              <tr>
+                <th class="time-col-header">看診時段</th>
+                <th>星期一</th>
+                <th>星期二</th>
+                <th>星期三</th>
+                <th>星期四</th>
+                <th>星期五</th>
+                <th>星期六</th>
+                <th class="holiday-col">星期日</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="time-col">
+                  <strong>🌞 上午診</strong><br>
+                  <span class="time-text">08:30 - 12:00</span>
+                </td>
+                <td>
+                  <span class="dept-badge badge-kidney">腎臟科</span><br>
+                  <span class="doc-name">李兆俊 院長</span>
+                </td>
+                <td>
+                  <span class="dept-badge badge-meta">新陳代謝</span><br>
+                  <span class="doc-name">王大明 醫師</span>
+                </td>
+                <td>
+                  <span class="dept-badge badge-kidney">腎臟科</span><br>
+                  <span class="doc-name">李兆俊 院長</span>
+                </td>
+                <td>
+                  <span class="dept-badge badge-heart">心臟內科</span><br>
+                  <span class="doc-name">陳小華 醫師</span>
+                </td>
+                <td>
+                  <span class="dept-badge badge-kidney">腎臟科</span><br>
+                  <span class="doc-name">李兆俊 院長</span>
+                </td>
+                <td>
+                  <span class="dept-badge badge-meta">新陳代謝</span><br>
+                  <span class="doc-name">王大明 醫師</span>
+                </td>
+                <td rowspan="3" class="holiday-col vertical-center">
+                  <strong>休<br>診</strong>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="time-col">
+                  <strong>☕ 下午診</strong><br>
+                  <span class="time-text">14:30 - 17:30</span>
+                </td>
+                <td>
+                  <span class="dept-badge badge-heart">心臟內科</span><br>
+                  <span class="doc-name">陳小華 醫師</span>
+                </td>
+                <td>
+                  <span class="dept-badge badge-kidney">腎臟科</span><br>
+                  <span class="doc-name">李兆俊 院長</span>
+                </td>
+                <td>休診</td>
+                <td>
+                  <span class="dept-badge badge-meta">新陳代謝</span><br>
+                  <span class="doc-name">王大明 醫師</span>
+                </td>
+                <td>
+                  <span class="dept-badge badge-kidney">腎臟科</span><br>
+                  <span class="doc-name">李兆俊 院長</span>
+                </td>
+                <td>休診</td>
+              </tr>
+
+              <tr>
+                <td class="time-col">
+                  <strong>🌙 晚上診</strong><br>
+                  <span class="time-text">18:30 - 21:00</span>
+                </td>
+                <td>
+                  <span class="dept-badge badge-meta">新陳代謝</span><br>
+                  <span class="doc-name">王大明 醫師</span>
+                </td>
+                <td>休診</td>
+                <td>
+                  <span class="dept-badge badge-heart">心臟內科</span><br>
+                  <span class="doc-name">陳小華 醫師</span>
+                </td>
+                <td>休診</td>
+                <td>
+                  <span class="dept-badge badge-kidney">腎臟科</span><br>
+                  <span class="doc-name">李兆俊 院長</span>
+                </td>
+                <td>休診</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="notice-section">
+        <div class="notice-box">
+          <h3>📌 掛號與看診須知</h3>
+          <ul class="notice-list">
+            <li><strong>掛號時間：</strong>上午診至 11:30 截止，下午診至 17:00 截止，晚上診至 20:30 截止。</li>
+            <li><strong>報到提醒：</strong>初診患者請攜帶「健保卡」及「身分證」，並請於門診結束前 30 分鐘完成報到手續。</li>
+            <li><strong>預約須知：</strong>為節省您的等候時間，建議利用電話預約掛號。預約專線：(08) 123-4567。</li>
+            <li><strong>抽血檢驗：</strong>需空腹抽血之患者，請於前一晚 12 點後禁食（可喝少許白開水），並於上午看診時段報到。</li>
+            <li><span style="color: #dc3545; font-weight: bold;">國定假日及連續假期門診時間，請依本院「最新消息」公告為主。</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>© 2026 活力醫療機構 All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
+
+    <script>
+      // 回到頁頂按鈕邏輯
+      document.addEventListener("DOMContentLoaded", () => {
+        const backToTopBtn = document.getElementById("backToTopBtn");
+        if (backToTopBtn) {
+          window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+              backToTopBtn.classList.add("show");
+            } else {
+              backToTopBtn.classList.remove("show");
+            }
+          });
+
+          backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -17,7 +17,7 @@
 
         <nav class="nav-links">
           <a href="about.html">關於我們</a>
-          <a href="#hours">門診時間</a>
+          <a href="hours.html">門診時間</a>
 
           <div class="dropdown">
             <a href="#team" class="dropdown-toggle">醫療團隊 ▾</a>
@@ -95,7 +95,7 @@
             <h2>💡 衛教專區</h2>
             <a href="education.html" class="more-link">看更多</a>
           </div>
-          
+
           <div class="edu-grid" id="index-edu-grid"></div>
         </div>
       </section>
@@ -264,7 +264,7 @@
           "護理專區",
           "藥物專區",
           "眼睛保健專區",
-          "心血管專區"
+          "心血管專區",
         ];
 
         // 讀取全站共用的 JSON 資料庫 (加上時間戳記徹底打破快取)
@@ -277,7 +277,9 @@
             indexEduGrid.innerHTML = ""; // 先清空骨架
 
             // 1. 【關鍵過濾】：從資料庫中，只挑選出分類屬於「衛教專區」的文章
-            const eduArticles = data.filter(item => educationCategories.includes(item.category));
+            const eduArticles = data.filter((item) =>
+              educationCategories.includes(item.category),
+            );
 
             // 2. 【擷取前 4 筆】：只拿最新上傳的前 4 篇衛教文章
             const topEdu = eduArticles.slice(0, 4);
@@ -295,12 +297,14 @@
 
             // 防呆機制：如果 JSON 裡目前沒有任何衛教文章
             if (topEdu.length === 0) {
-              indexEduGrid.innerHTML = "<p style='color:#888; grid-column: 1/-1; text-align:center; padding: 20px;'>目前暫無衛教文章發表</p>";
+              indexEduGrid.innerHTML =
+                "<p style='color:#888; grid-column: 1/-1; text-align:center; padding: 20px;'>目前暫無衛教文章發表</p>";
             }
           })
           .catch((error) => {
             console.error("衛教專區載入失敗:", error);
-            indexEduGrid.innerHTML = "<p style='color:red; grid-column: 1/-1; text-align:center; padding: 20px;'>衛教專區載入中或發生異常...</p>";
+            indexEduGrid.innerHTML =
+              "<p style='color:red; grid-column: 1/-1; text-align:center; padding: 20px;'>衛教專區載入中或發生異常...</p>";
           });
       }
       // =========================================
