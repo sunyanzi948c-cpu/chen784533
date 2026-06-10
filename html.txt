@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>活力醫療中心</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=8" />
   </head>
   <body>
     <header class="navbar">
@@ -57,18 +57,16 @@
 
       <div class="carousel-track" id="carouselTrack">
         <div class="slide">
-          <img src="image/IDF-Banner改.png" alt="IDF 糖尿病照護卓越中心認證" />
+          <img src="image/123.jpg" alt="IDF 糖尿病照護卓越中心認證" />
         </div>
         <div class="slide">
-          <img
-            src="image/橫幅十 - 老闆得獎.png"
-            alt="李兆俊院長榮獲世界頂尖 Top5 學者" />
+          <img src="image/456.jpg" alt="李兆俊院長榮獲世界頂尖 Top5 學者" />
         </div>
         <div class="slide">
-          <img src="image/橫幅十.png" alt="李氏聯合診所 全方位慢性病治療" />
+          <img src="image/789.png" alt="李氏聯合診所 全方位慢性病治療" />
         </div>
         <div class="slide">
-          <img src="image/橫幅十二.png" alt="藍文君診所 榮獲國健署特優獎" />
+          <img src="image/012.png" alt="藍文君診所 榮獲國健署特優獎" />
         </div>
       </div>
 
@@ -89,24 +87,7 @@
             <h2>📢 最新消息</h2>
             <a href="news.html" class="more-link">看更多</a>
           </div>
-          <ul class="news-list">
-            <li>
-              <span class="news-date">2026/06/08</span>
-              <a href="#">端午連假門診時間異動公告</a>
-            </li>
-            <li>
-              <span class="news-date">2026/06/01</span>
-              <a href="#">公費肺炎鏈球菌疫苗開始接種</a>
-            </li>
-            <li>
-              <span class="news-date">2026/05/25</span>
-              <a href="#">賀！本院榮獲年度優良醫療機構</a>
-            </li>
-            <li>
-              <span class="news-date">2026/05/10</span>
-              <a href="#">智能透析 APP 上線，隨時掌握健康數據</a>
-            </li>
-          </ul>
+          <ul class="news-list" id="index-news-list"></ul>
         </div>
 
         <div class="board edu-board">
@@ -115,11 +96,11 @@
             <a href="education.html" class="more-link">看更多</a>
           </div>
           <div class="edu-grid">
-            <a href="#" class="edu-card">
+            <a href="article.html?id=101" class="edu-card">
               <div class="edu-tag">慢性病</div>
               <h3>糖尿病的日常飲食控制原則</h3>
             </a>
-            <a href="#" class="edu-card">
+            <a href="article.html?id=102" class="edu-card">
               <div class="edu-tag">腎臟科</div>
               <h3>如何保護腎臟？這五件事不可不知</h3>
             </a>
@@ -162,7 +143,7 @@
         <p>&copy; 2026 活力醫療機構 All Rights Reserved.</p>
       </div>
     </footer>
-
+    <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
     <script>
       // 抓取需要的 DOM 元素
       const track = document.getElementById("carouselTrack");
@@ -205,7 +186,7 @@
       function startAutoPlay() {
         autoPlayInterval = setInterval(() => {
           moveToSlide(currentIndex + 1);
-        }, 10000); // 4000 毫秒 = 4 秒
+        }, 20000); // 4000 毫秒 = 4 秒
       }
 
       function stopAutoPlay() {
@@ -243,6 +224,72 @@
 
       // 網頁載入時啟動自動輪播
       startAutoPlay();
+
+      // =========================================
+      // 首頁：動態載入 JSON 最新消息 (取前 4 筆)
+      // =========================================
+      document.addEventListener("DOMContentLoaded", () => {
+        const indexNewsList = document.getElementById("index-news-list");
+
+        if (indexNewsList) {
+          // 讀取我們之前建立的資料庫
+          fetch("news-data.json")
+            .then((response) => {
+              if (!response.ok) throw new Error("無法讀取資料庫");
+              return response.json();
+            })
+            .then((data) => {
+              indexNewsList.innerHTML = ""; // 清空預設內容
+
+              // 擷取陣列的前 4 筆資料 (最新的 4 篇)
+              const topNews = data.slice(0, 4);
+
+              // 將這 4 筆資料轉換成 HTML 並塞入首頁
+              topNews.forEach((item) => {
+                const liItem = `
+                              <li>
+                                  <div style="display: flex; gap: 10px; align-items: center;">
+                                      <span class="news-tag ${item.tagClass}" style="font-size: 0.75rem; padding: 2px 8px;">${item.category}</span>
+                                      <span class="news-date" style="margin: 0;">${item.date}</span>
+                                  </div>
+                                  
+                                  <a href="article.html?id=${item.id}">${item.title}</a>
+                              </li>
+                          `;
+                indexNewsList.insertAdjacentHTML("beforeend", liItem);
+              });
+            })
+            .catch((error) => {
+              console.error("載入失敗:", error);
+              indexNewsList.innerHTML = "<li>資料載入中或發生錯誤...</li>";
+            });
+        }
+      });
+      // =========================================
+      // 快速回到頁頂功能
+      // =========================================
+      const backToTopBtn = document.getElementById("backToTopBtn");
+
+      if (backToTopBtn) {
+        // 監聽網頁滾動事件
+        window.addEventListener("scroll", () => {
+          // 當往下滾動超過 300px 時，幫按鈕加上 'show' 讓它浮現
+          if (window.scrollY > 300) {
+            backToTopBtn.classList.add("show");
+          } else {
+            // 滾回頂部時，移除 'show' 讓它隱藏
+            backToTopBtn.classList.remove("show");
+          }
+        });
+
+        // 監聽按鈕點擊事件
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth", // 讓畫面像滑行一樣平滑滾動上去，而不是瞬間跳躍
+          });
+        });
+      }
     </script>
   </body>
 </html>
