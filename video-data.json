@@ -43,5 +43,23 @@
         "duration": "05:20",
         "url": "https://www.youtube.com/watch?v=uEvbQdUAAEQ",
         "description": "按時規律用藥是控制病情關鍵，請遵從醫囑服藥不中斷，守護健康！"
+    },
+    {
+        "id": 6,
+        "category": "衛教",
+        "tagClass": "tag-green",
+        "title": "❗別亂喝❗小心越喝越變胖還變老😥",
+        "duration": "05:20",
+        "url": "https://www.youtube.com/watch?v=Q0mgmvWMo3g",
+        "description": "一樣是飲料居然差這麼多❓綠拿鐵就是比較健康❗❗❗"
+    },
+    {
+        "id": 7,
+        "category": "講座",
+        "tagClass": "tag-green",
+        "title": "要洗腎了😥天塌了~洗完反而比較好❗❓❓",
+        "duration": "05:20",
+        "url": "https://www.youtube.com/watch?v=gS7gUP21Kuo",
+        "description": "洗腎並非人生黑白！只要做好透析治療，生活品質反而更能提升。"
     }
 ]
