@@ -1552,11 +1552,12 @@ a {
 
 .gallery-grid img {
     flex: 0 0 85% !important;
-    /* 關鍵：每張圖只佔螢幕 85%，露出下一張圖的邊緣 */
+    width: 85% !important;
+    /* ✅ 加上這行：強制寬度就是 85% */
+    max-width: 85% !important;
+    /* ✅ 加上這行：雙重防護，絕對不准放大 */
     scroll-snap-align: center;
-    /* 滑動時會自動磁吸置中對齊 */
     height: 220px !important;
-    /* 固定高度避免參差不齊 */
 }
 }
 
@@ -1710,4 +1711,60 @@ a {
         width: 100%;
         border-radius: 0;
     }
+}
+
+/* =========================================
+   社群媒體圖示按鈕 (Social Links)
+========================================= */
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 25px;
+    /* 與上方聯絡資訊拉開距離 */
+}
+
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    background-color: var(--bg-color);
+    /* 預設為淺藍灰底色 */
+    color: var(--text-muted);
+    /* 預設為深灰色圖示 */
+    border-radius: 50%;
+    /* 完美的正圓形 */
+    font-size: 1.3rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 滑鼠移過去的浮起效果與品牌色變換 */
+.social-icon:hover {
+    color: #ffffff;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* 各社群平台的專屬品牌色 */
+.social-icon.fb:hover {
+    background-color: #1877F2;
+}
+
+.social-icon.ig:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-icon.threads:hover {
+    background-color: #000000;
+}
+
+.social-icon.yt:hover {
+    background-color: #FF0000;
+}
+
+.social-icon.line:hover {
+    background-color: #06C755;
 }
