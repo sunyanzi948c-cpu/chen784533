@@ -25,5 +25,23 @@
         "duration": "05:20",
         "url": "https://www.youtube.com/watch?v=cWO5c_V8WEA",
         "description": "東港陳秋安診所新開幕！市區好停車、無障礙，就診環境明亮舒適。"
+    },
+    {
+        "id": 4,
+        "category": "導覽",
+        "tagClass": "tag-green",
+        "title": "李氏聯合診所 | IDF糖尿病照護卓越中心特色介紹",
+        "duration": "05:20",
+        "url": "https://www.youtube.com/watch?v=xqoGYy0kAkI",
+        "description": "IDF糖尿病照護卓越中心特色介紹"
+    },
+    {
+        "id": 5,
+        "category": "講座",
+        "tagClass": "tag-green",
+        "title": "規律用藥",
+        "duration": "05:20",
+        "url": "https://www.youtube.com/watch?v=uEvbQdUAAEQ",
+        "description": "按時規律用藥是控制病情關鍵，請遵從醫囑服藥不中斷，守護健康！"
     }
 ]
