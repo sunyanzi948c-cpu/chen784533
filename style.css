@@ -1501,3 +1501,155 @@ a {
         grid-template-columns: 1fr !important;
     }
 }
+
+/* =========================================
+   影片專區 (Video Gallery) 現代化樣式
+========================================= */
+.video-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.video-card-modern {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.video-card-modern:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 168, 150, 0.15);
+}
+
+/* 縮圖區域 */
+.video-thumb-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    /* 保持標準影片比例 */
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.video-thumb-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+/* 播放鍵遮罩層 */
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.play-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    padding-left: 5px;
+    /* 微調三角形居中 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.video-card-modern:hover .video-thumb-box img {
+    transform: scale(1.05);
+}
+
+.video-card-modern:hover .play-overlay {
+    opacity: 1;
+}
+
+.video-card-modern:hover .play-icon {
+    transform: scale(1);
+}
+
+/* 右下角時間標籤 */
+.video-duration-tag {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* 文字資訊區塊 */
+.video-info-box {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.video-title-modern {
+    font-size: 1.2rem;
+    color: var(--text-main);
+    margin: 12px 0 8px 0;
+    line-height: 1.4;
+    font-weight: bold;
+}
+
+.video-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* 最多顯示兩行 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* 影片燈箱播放器比例容器 */
+.video-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    /* 電腦版最大寬度 */
+    aspect-ratio: 16 / 9;
+    /* 維持 16:9 比例，手機版也不會破版 */
+    background: #000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 確保手機版影片燈箱滿版 */
+@media screen and (max-width: 768px) {
+    .video-wrapper {
+        width: 100%;
+        border-radius: 0;
+    }
+}

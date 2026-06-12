@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>影片專區 - 活力醫療中心</title>
+    <link rel="stylesheet" href="style.css?v=15" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container nav-container">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">✚</span> 活力醫療
+        </a>
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox" />
+        <label for="menu-toggle" class="menu-btn">☰</label>
+
+        <nav class="nav-links">
+          <a href="about.html">關於我們</a>
+          <a href="hours.html">門診時間</a>
+          <div class="dropdown">
+            <a href="index.html#team" class="dropdown-toggle">醫療團隊 ▾</a>
+            <input type="checkbox" id="team-toggle" class="dropdown-checkbox" />
+            <label for="team-toggle" class="dropdown-label">醫療團隊 ▾</label>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a href="#">新陳代謝科</a><a href="#">神經內科</a>
+                <a href="#">腎臟內科</a><a href="#">眼科</a>
+                <a href="#">泌尿科</a><a href="#">肝膽腸胃科</a>
+                <a href="#">心臟內科</a><a href="#">胸腔內科</a>
+                <a href="#">居家護理師</a><a href="#">護理衛教師</a>
+                <a href="#">護理師</a><a href="#">營養衛教師</a>
+                <a href="#">血液透析護理師</a><a href="#">醫檢師</a>
+                <a href="#">心理師</a><a href="#">藥師</a>
+              </div>
+            </div>
+          </div>
+        
+          <a href="dialysis.html">智能透析</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-header">
+      <div class="container">
+        <h1>▶️ 影片專區</h1>
+        <p>專業醫師與衛教團隊的健康講座、醫療小知識與環境導覽</p>
+      </div>
+    </div>
+
+    <main class="page-content">
+      <section class="about-section">
+        <div class="container">
+          <div class="filter-tabs" id="video-filters">
+            <a href="#" class="tab active" data-filter="all">全部影片</a>
+            <a href="#" class="tab" data-filter="講座">健康講座</a>
+            <a href="#" class="tab" data-filter="衛教">醫療衛教</a>
+            <a href="#" class="tab" data-filter="導覽">環境導覽</a>
+          </div>
+
+          <div class="video-gallery-grid" id="video-grid">
+            <div style="text-align:center; padding: 40px; color:#888; grid-column: 1/-1;">影片載入中...</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>© 2026 活力醫療機構 All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <div id="video-lightbox" class="lightbox">
+      <span class="lightbox-close video-close">×</span>
+      <div class="video-wrapper">
+        <div id="iframe-container"></div>
+      </div>
+    </div>
+
+    <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- 1. 動態載入影片資料庫 ---
+        const videoGrid = document.getElementById("video-grid");
+        const filterTabs = document.querySelectorAll("#video-filters .tab");
+        let allVideos = [];
+
+        // 讀取新的影片專用 JSON 資料庫
+        fetch("video-data.json?v=" + new Date().getTime())
+          .then((res) => {
+            if (!res.ok) throw new Error("無法讀取影片資料庫");
+            return res.json();
+          })
+          .then((data) => {
+            allVideos = data;
+            renderVideos(allVideos);
+          })
+          .catch((err) => {
+            console.error(err);
+            videoGrid.innerHTML = "<p style='color:red; text-align:center; grid-column: 1/-1;'>目前暫無影片資料。</p>";
+          });
+
+        function renderVideos(videosToRender) {
+          videoGrid.innerHTML = "";
+          if (videosToRender.length === 0) {
+            videoGrid.innerHTML = "<p style='color:#888; text-align:center; grid-column: 1/-1; padding: 40px;'>此分類目前沒有影片。</p>";
+            return;
+          }
+
+          videosToRender.forEach((video) => {
+            // 擷取 YouTube ID 來產生高畫質縮圖
+            // 支援的網址格式：https://www.youtube.com/watch?v=XXXXX 或 https://youtu.be/XXXXX
+            let videoId = "";
+            if(video.url.includes("v=")){
+                videoId = video.url.split("v=")[1].split("&")[0];
+            } else if (video.url.includes("youtu.be/")){
+                videoId = video.url.split("youtu.be/")[1].split("?")[0];
+            }
+            
+            const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+            const cardHTML = `
+              <div class="video-card-modern" data-vid="${videoId}">
+                <div class="video-thumb-box">
+                  <img src="${thumbnailUrl}" alt="${video.title}" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'" />
+                  <div class="play-overlay"><div class="play-icon">▶</div></div>
+                  <span class="video-duration-tag">${video.duration}</span>
+                </div>
+                <div class="video-info-box">
+                  <span class="news-tag ${video.tagClass}">${video.category}</span>
+                  <h3 class="video-title-modern">${video.title}</h3>
+                  <p class="video-desc">${video.description}</p>
+                </div>
+              </div>
+            `;
+            videoGrid.insertAdjacentHTML("beforeend", cardHTML);
+          });
+        }
+
+        // --- 2. 分類過濾功能 ---
+        filterTabs.forEach((tab) => {
+          tab.addEventListener("click", (e) => {
+            e.preventDefault();
+            filterTabs.forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
+
+            const filterValue = tab.getAttribute("data-filter");
+            if (filterValue === "all") {
+              renderVideos(allVideos);
+            } else {
+              const filtered = allVideos.filter((v) => v.category === filterValue);
+              renderVideos(filtered);
+            }
+          });
+        });
+
+        // --- 3. 影片燈箱播放邏輯 ---
+        const videoLightbox = document.getElementById("video-lightbox");
+        const iframeContainer = document.getElementById("iframe-container");
+        const videoCloseBtn = document.querySelector(".video-close");
+
+        // 監聽網格內的點擊事件 (因為卡片是動態生成的，所以要綁定在父容器上)
+        videoGrid.addEventListener("click", (e) => {
+          const card = e.target.closest(".video-card-modern");
+          if (card) {
+            const vidId = card.getAttribute("data-vid");
+            // 塞入 iframe 並設定 autoplay=1 自動播放
+            iframeContainer.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${vidId}?autoplay=1&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            videoLightbox.style.display = "flex";
+          }
+        });
+
+        // 關閉燈箱功能 (必須清空 iframe，否則聲音會繼續播)
+        function closeVideoLightbox() {
+          videoLightbox.style.display = "none";
+          iframeContainer.innerHTML = ""; 
+        }
+
+        videoCloseBtn.addEventListener("click", closeVideoLightbox);
+        videoLightbox.addEventListener("click", (e) => {
+          if (e.target === videoLightbox) closeVideoLightbox();
+        });
+
+        // --- 4. 回到頁頂 ---
+        const backToTopBtn = document.getElementById("backToTopBtn");
+        if (backToTopBtn) {
+          window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) backToTopBtn.classList.add("show");
+            else backToTopBtn.classList.remove("show");
+          });
+          backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

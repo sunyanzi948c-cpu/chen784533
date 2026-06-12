@@ -115,6 +115,44 @@ a {
 }
 
 /* =========================================
+   首頁：最新消息佈告欄列表優化 (全站通用電腦版預設)
+========================================= */
+.news-list {
+    list-style: none;
+    /* 移除預設的黑點 */
+    padding-left: 0;
+}
+
+.news-list li {
+    padding: 15px 0;
+    /* 每則新聞的上下間距 */
+    border-bottom: 1px dashed #EAEAEA;
+    /* 加上淡淡的虛線分隔線 */
+}
+
+.news-list li:last-child {
+    border-bottom: none;
+    /* 最後一筆不要底線 */
+}
+
+.news-list a {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    /* 關鍵：電腦版與全站同步改成高對比深灰色 */
+    font-weight: 600;
+    /* 字體稍微加粗，增加重量感 */
+    display: block;
+    margin-top: 8px;
+    transition: color 0.3s;
+}
+
+/* 滑鼠游標移過去時的互動效果 */
+.news-list a:hover {
+    color: var(--primary-color);
+    /* 懸停時變回品牌藍綠色 */
+}
+/* =========================================
    導覽列：醫療團隊下拉選單 (Dropdown)
 ========================================= */
 /* 隱藏手機版專用的摺疊開關 */
@@ -826,7 +864,21 @@ a {
     line-height: 1.8;
     /* 加大行距，眼睛不疲勞 */
 }
+/* 隱藏文章內文清單的預設黑點，並優化間距 */
+.article-body ul {
+    list-style: none;
+    /* 移除瀏覽器預設的黑點 */
+    padding-left: 0;
+    /* 移除預設的左側縮排，讓文字對齊標題 */
+    margin-bottom: 20px;
+    /* 與下一個段落保持距離 */
+}
 
+.article-body li {
+    margin-bottom: 10px;
+    /* 讓每個清單項目之間多一點呼吸空間，不擠在一起 */
+    line-height: 1.6;
+}
 .article-body p {
     margin-bottom: 20px;
 }
@@ -855,5 +907,635 @@ a {
 
     .article-title {
         font-size: 1.5rem;
+    }
+    
+    
+  /* =========================================
+       手機版：首頁佈告欄標題與列表排版優化
+    ========================================= */
+   .board-header {
+      gap: 10px;
+      /* 確保標題和按鈕之間有安全距離 */
+  }
+   .board {
+    padding: 20px 15px;
+   }
+   .board-header h2 {
+      font-size: 1.3rem;
+      /* 手機版稍微縮小一點標題字體 */
+      white-space: nowrap;
+      /* 關鍵1：強制標題絕對不換行 */
+      margin-bottom: 0;
+  }
+
+  .more-link {
+      white-space: nowrap;
+      /* 關鍵2：強制按鈕文字不換行 */
+      flex-shrink: 0;
+      /* 關鍵3：保護按鈕，絕對不允許被螢幕擠扁 */
+      padding: 5px 12px;
+      /* 稍微縮小按鈕內距讓它更精緻 */
+      font-size: 0.85rem;
+  }
+
+  /* 順便優化首頁的新聞列表，讓手機版更好閱讀 */
+  .news-list li {
+      padding: 12px 0;
+      /* 手機版稍微縮緊上下間距 */
+  }
+
+  .news-list .news-date {
+      background-color: var(--bg-color);
+      /* 給日期一個淡淡的底色標籤感 */
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+  }
+
+  .news-list a {
+      font-size: 1rem;
+      /* 手機版字體稍微縮小一點點，符合手機螢幕比例 */
+  }
+}
+
+/* =========================================
+   最新消息標籤顏色設定 (Tag Colors)
+========================================= */
+.news-tag {
+    display: inline-block;
+    /* 確保標籤能撐開內距與圓角 */
+    color: #FFFFFF !important;
+    /* 強制文字為白色 */
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+/* 各分類的專屬背景色 */
+.tag-orange {
+    background-color: #F0A500;
+}
+
+/* 亮橘色 (門診異動) */
+.tag-blue {
+    background-color: #2D9CDB;
+}
+
+/* 柔和藍色 (疫苗活動、醫療新知) */
+.tag-green {
+    background-color: #00A896;
+}
+
+/* 醫療藍綠色 (營養衛教、預防醫學) */
+
+/* =========================================
+   快速回到頁頂按鈕 (Back to Top)
+========================================= */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    /* 使用醫療藍綠色 */
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    /* 變成完美的圓形 */
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 168, 150, 0.4);
+    cursor: pointer;
+    z-index: 9999;
+    /* 確保它永遠浮在最上層 */
+
+    /* 預設隱藏並往下沉的動畫設定 */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* 讓裡面的箭頭絕對置中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 當加上 .show 類別時，按鈕浮現 */
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* 電腦版滑鼠移過去的互動效果 */
+.back-to-top:hover {
+    background-color: var(--secondary-color);
+    /* 變為活潑的橙黃色 */
+    transform: translateY(-5px) scale(1.05);
+    /* 稍微往上浮起並變大 */
+    box-shadow: 0 6px 20px rgba(240, 165, 0, 0.4);
+}
+
+/* 手機版微調 (讓按鈕稍微縮小，避免擋住太多內文) */
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+}
+
+/* =========================================
+   圖片放大燈箱 (Lightbox) 與互動樣式
+========================================= */
+/* 暗示圖片可點擊的互動效果 */
+.zoomable-img {
+    cursor: zoom-in;
+    /* 滑鼠游標變成放大鏡 */
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.zoomable-img:hover {
+    transform: scale(1.02);
+    /* 滑鼠移過去微微浮起放大 */
+    filter: brightness(0.95);
+    /* 稍微變暗提示可點擊 */
+}
+
+/* 燈箱全螢幕黑底 */
+.lightbox {
+    display: none;
+    /* 預設隱藏，由 JS 控制顯示為 flex */
+    position: fixed;
+    z-index: 10000;
+    /* 確保浮在網頁所有東西的最上面 */
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    /* 漂亮的半透明深色背景 */
+    justify-content: center;
+    align-items: center;
+}
+
+/* 放大的圖片本身 */
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    /* 確保高圖片不會超出螢幕 */
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    object-fit: contain;
+    /* 完整顯示不裁切 */
+    animation: zoomIn 0.3s ease;
+    /* 彈出的動畫 */
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 右上角的巨大關閉按鈕 */
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #ffffff;
+    font-size: 50px;
+    /* 超大按鈕 */
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+    user-select: none;
+    z-index: 10001;
+}
+
+.lightbox-close:hover {
+    color: var(--secondary-color);
+    /* 滑鼠移過去變成醒目的橘黃色 */
+}
+
+/* =========================================
+   手機版 (行動裝置) 響應式排版優化 (RWD)
+========================================= */
+
+/* 當螢幕寬度小於 768 像素時啟用以下語法 */
+@media screen and (max-width: 768px) {
+
+    /* 強制將原本左右並排的「關於介紹/智能透析」區塊堆疊起來 */
+    .about-intro {
+        flex-direction: column;
+        /* 改為垂直堆疊 */
+        gap: 30px;
+        /* 文字和圖片中間的間距稍微縮小 */
+    }
+
+    /* 讓文字和圖片區塊自動取全滿寬度 */
+    .intro-text,
+    .intro-image {
+        flex-basis: 100%;
+        /* 強制為 100% 寬度 */
+        width: 100%;
+        /* 確保寬度不破表 */
+    }
+
+    /* 針對您貼上的這張大圖 524.jpg 進行極致瘦身 */
+    .intro-image img {
+        width: 100%;
+        /* 圖片寬度依循父層全滿 */
+        max-width: 100%;
+        /* 確保永遠不會「爆」出去 */
+        height: auto;
+        /* 保持圖片比例不變形 */
+        object-fit: contain;
+        /* 讓圖片完整呈現，不被裁切 */
+    }
+}
+
+/* =========================================
+   關於我們 (About Us) 現代化美化樣式
+========================================= */
+.about-section {
+    padding: 60px 0;
+}
+
+/* ✅ 修正後的全滿背景語法 */
+.bg-light {
+    background-color: #f8fafc;
+    padding: 60px 0;
+    /* 只要設定上下間距，左右交給裡面的 container */
+    /* Remove negative margin, border-radius */
+}
+
+.section-title {
+    color: var(--primary-color) !important;
+    margin-bottom: 40px;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* 區塊一：理念宗旨願景三欄卡片 */
+.vision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.vision-card {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    border-top: 4px solid var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.vision-card:hover {
+    transform: translateY(-5px);
+}
+
+.vision-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.vision-card h3 {
+    color: #333;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.vision-card p {
+    color: #666;
+    line-height: 1.7;
+    font-size: 1rem;
+    text-align: justify;
+}
+
+/* 區塊二：院長簡介雙欄排版 */
+.dean-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.dean-image {
+    flex: 1 1 350px;
+    text-align: center;
+}
+
+.dean-image img {
+    width: 100%;
+    max-width: 380px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.dean-info {
+    flex: 1 1 450px;
+}
+
+.dean-subtitle {
+    color: var(--secondary-color);
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.dean-name {
+    font-size: 2.2rem;
+    color: #222;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.dean-badge {
+    display: inline-block;
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+}
+
+.info-block {
+    margin-bottom: 25px;
+}
+
+.info-block h3 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--secondary-color);
+    padding-left: 10px;
+}
+
+.info-block p {
+    color: #444;
+    line-height: 1.7;
+    font-size: 1.05rem;
+}
+
+.bullet-list {
+    padding-left: 20px;
+    color: #444;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.dean-message {
+    font-style: italic;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+/* 區塊三：環境導覽網格 */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 區塊四：聯絡與交通資訊 */
+.contact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.contact-info,
+.contact-map {
+    flex: 1 1 400px;
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-list li {
+    margin-bottom: 15px;
+    line-height: 1.7;
+    color: #444;
+    font-size: 1.05rem;
+}
+
+/* =========================================
+   門診時間 (Clinic Hours) 專屬樣式
+========================================= */
+.hours-section {
+  padding: 40px 0;
+}
+
+/* 讓表格在手機螢幕上可左右滑動，不破壞版面 */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  background-color: white;
+}
+
+/* 門診時刻表主體 */
+.hours-table {
+  width: 100%;
+  min-width: 800px; /* 確保縮小視窗時，格子不會被擠到變形 */
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.hours-table th, 
+.hours-table td {
+  padding: 15px 10px;
+  border: 1px solid #eaeaea;
+  vertical-align: middle;
+}
+
+/* 表頭設計 */
+.hours-table thead th {
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 18px 10px;
+}
+
+.hours-table thead th.time-col-header {
+  background-color: var(--secondary-color);
+}
+
+/* 時間直欄 */
+.time-col {
+  background-color: #f8fafc;
+  color: #333;
+  width: 120px;
+}
+
+.time-text {
+  font-size: 0.9rem;
+  color: #666;
+  display: block;
+  margin-top: 5px;
+}
+
+/* 醫師名稱與科別標籤 */
+.doc-name {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: #333;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.dept-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* 各科別專屬顏色 (可依需求自行增減) */
+.badge-kidney { background-color: #20c997; } /* 腎臟科 - 綠色 */
+.badge-meta { background-color: #fd7e14; }   /* 新陳代謝 - 橘色 */
+.badge-heart { background-color: #dc3545; }  /* 心臟科 - 紅色 */
+
+/* 儲存格 Hover 特效 */
+.hours-table tbody td:not(.time-col):not(.holiday-col):hover {
+  background-color: #f0f7f9;
+  cursor: default;
+}
+
+/* 假日直欄 (星期日) */
+.holiday-col {
+  background-color: #fff5f5 !important;
+  color: #dc3545;
+}
+.vertical-center {
+  vertical-align: middle !important;
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+}
+
+/* =========================================
+   看診與掛號須知
+========================================= */
+.notice-section {
+  padding: 20px 0 60px 0;
+}
+
+.notice-box {
+  background-color: #fff9e6; /* 溫暖的淺黃色底 */
+  border-left: 5px solid #ffc107;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.notice-box h3 {
+  color: #856404;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.notice-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.notice-list li {
+  margin-bottom: 12px;
+  line-height: 1.7;
+  color: #555;
+  font-size: 1.05rem;
+  position: relative;
+  padding-left: 20px;
+}
+
+/* 自訂列表圓點 */
+.notice-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ffc107;
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1;
+  top: 2px;
+}
+
+/* =========================================
+   手機版 (行動裝置) 終極防跑版語法
+========================================= */
+@media screen and (max-width: 768px) {
+
+    /* 1. 讓所有的雙欄排版在手機上變成「上下堆疊」 */
+    .about-intro,
+    .dean-container,
+    .contact-grid {
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    /* 2. 強制所有區塊的寬度不能超過螢幕的 100% */
+    .intro-text,
+    .intro-image,
+    .dean-image,
+    .dean-info,
+    .contact-info,
+    .contact-map {
+        flex-basis: 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. 圖片強制自動縮放，絕對不能超過外框 */
+    .intro-image img,
+    .dean-image img {
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: cover !important;
+    }
+
+    /* 4. 微調三大優勢卡片，確保小手機也能完美滿版 */
+    .vision-grid {
+        grid-template-columns: 1fr !important;
     }
 }

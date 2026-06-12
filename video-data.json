@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "category": "講座",
+        "tagClass": "tag-orange",
+        "title": "不可不知的痛 ~~ 帶狀皰疹",
+        "duration": "12:45",
+        "url": "https://www.youtube.com/watch?v=ZFYLBiUQRAE&list=PLHx8VHtzWG_vm9jmVfTJoE5s4nLohGcmN&t=1s",
+        "description": "神經內科吳淑蓉醫師，跟大家聊的是帶狀皰疹，也就是一般我們說的『皮蛇』"
+    },
+    {
+        "id": 2,
+        "category": "衛教",
+        "tagClass": "tag-blue",
+        "title": "什麼?!帶手機就可以測血糖了!",
+        "duration": "01:30",
+        "url": "https://www.youtube.com/watch?v=D065QFnm4h0&t=2s",
+        "description": "帶手機就能測血糖！看影片學CGM操作與優勢，輕鬆管理健康。"
+    },
+    {
+        "id": 3,
+        "category": "導覽",
+        "tagClass": "tag-green",
+        "title": "⟪陳秋安診所介紹⟫",
+        "duration": "05:20",
+        "url": "https://www.youtube.com/watch?v=cWO5c_V8WEA",
+        "description": "東港陳秋安診所新開幕！市區好停車、無障礙，就診環境明亮舒適。"
+    }
+]
