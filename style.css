@@ -1129,20 +1129,20 @@ a {
    關於我們 (About Us) 現代化美化樣式
 ========================================= */
 .about-section {
-    padding: 60px 0;
+    padding: 40px 0;
 }
 
 /* ✅ 修正後的全滿背景語法 */
 .bg-light {
     background-color: #f8fafc;
-    padding: 60px 0;
+    padding: 40px 0;
     /* 只要設定上下間距，左右交給裡面的 container */
     /* Remove negative margin, border-radius */
 }
 
 .section-title {
     color: var(--primary-color) !important;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
     font-size: 1.8rem;
     font-weight: bold;
 }
