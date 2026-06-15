@@ -105,9 +105,8 @@
           <h2>▶️ 影片專區</h2>
           <a href="video.html" class="more-link">看更多</a>
         </div>
-        
-        <div class="video-grid" id="index-video-grid">
-          </div>
+
+        <div class="video-grid" id="index-video-grid"></div>
       </section>
     </main>
 
@@ -365,12 +364,14 @@
             });
 
             if (topVideos.length === 0) {
-              indexVideoGrid.innerHTML = "<p style='color:#888; grid-column: 1/-1; text-align:center; padding: 20px;'>目前暫無影片發表</p>";
+              indexVideoGrid.innerHTML =
+                "<p style='color:#888; grid-column: 1/-1; text-align:center; padding: 20px;'>目前暫無影片發表</p>";
             }
           })
           .catch((error) => {
             console.error("影片載入失敗:", error);
-            indexVideoGrid.innerHTML = "<p style='color:red; grid-column: 1/-1; text-align:center; padding: 20px;'>影片載入中或發生異常...</p>";
+            indexVideoGrid.innerHTML =
+              "<p style='color:red; grid-column: 1/-1; text-align:center; padding: 20px;'>影片載入中或發生異常...</p>";
           });
       }
     </script>
