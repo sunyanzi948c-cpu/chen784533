@@ -65,6 +65,16 @@ a {
     display: flex;
     align-items: center;
     gap: 8px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+        /* ✅ 1. 加上平滑動畫設定 */
+}
+
+/* ✅ 2. 加上滑鼠移過去的互動特效 */
+.logo:hover {
+    transform: scale(1.05);
+    /* 微微放大 5% */
+    filter: brightness(1.1);
+    /* 顏色稍微變亮 */
 }
 
 .logo-icon {
@@ -1558,6 +1568,23 @@ a {
     /* ✅ 加上這行：雙重防護，絕對不准放大 */
     scroll-snap-align: center;
     height: 220px !important;
+}
+
+/* =========================================
+       手機版：Logo 旁邊常駐顯示「首頁」小徽章
+    ========================================= */
+.logo::after {
+    content: "首頁";
+    font-size: 0.75rem;
+    background-color: var(--secondary-color);
+    /* 用您充滿活力的橘黃色 */
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 8px;
+    font-weight: normal;
+    vertical-align: middle;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 }
 
