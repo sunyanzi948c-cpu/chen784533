@@ -1835,3 +1835,167 @@ a {
 .social-icon.line:hover {
     background-color: #06C755;
 }
+
+/* =========================================
+   醫療團隊：醫師陣容專屬卡片樣式
+========================================= */
+.doctor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.doctor-card {
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f0f4f8;
+}
+
+.doctor-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 168, 150, 0.12);
+}
+
+/* 醫師照片區塊 */
+.doc-photo {
+    width: 100%;
+    height: 280px;
+    /* 固定高度，讓所有卡片對齊 */
+    background-color: #eef3f5;
+    overflow: hidden;
+}
+
+.doc-photo img {
+    width: 100%;
+    height: 100%;
+    /* ✅ 將 cover 改為 contain，保證不裁切 */
+    object-fit: contain;
+    object-position: center bottom;
+    /* 讓人物重心往下沉穩一點 */
+    transition: transform 0.5s ease;
+    background-color: #eef3f5;
+    /* 圖片若沒填滿，會露出這個優雅的淺灰藍底色 */
+}
+
+.doctor-card:hover .doc-photo img {
+    transform: scale(1.05);
+    /* 滑鼠移過去照片微微放大 */
+}
+
+/* 醫師資訊區塊 */
+.doc-info {
+    padding: 30px 25px;
+    position: relative;
+}
+
+.doc-title-badge {
+    position: absolute;
+    top: -15px;
+    left: 25px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(240, 165, 0, 0.3);
+}
+
+.doc-info h3 {
+    color: var(--text-main);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--bg-color);
+    padding-bottom: 15px;
+}
+
+.doc-specialty h4 {
+    color: var(--primary-color);
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+}
+
+.doc-specialty ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.doc-specialty li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.doc-specialty li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* 為了讓手機版選單正常顯示首頁按鈕的微調 */
+@media screen and (max-width: 768px) {
+    .mobile-home-link {
+        display: block !important;
+        /* 在手機版強制顯示 */
+        background-color: #f8fafc;
+        color: var(--primary-color) !important;
+    }
+}
+
+/* =========================================
+   醫療團隊：學經歷區塊樣式
+========================================= */
+.doc-experience {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #e2e8f0;
+    /* 加一條淡淡的虛線分隔線，增加層次感 */
+}
+
+.doc-experience h4 {
+    color: var(--secondary-color);
+    /* 標題改用您的橘黃色，與主治專長的綠色做區隔 */
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+}
+
+.doc-experience ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.doc-experience li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 6px;
+    /* 行距稍微縮緊一點，避免卡片過長 */
+    color: #666;
+    /* 字體顏色稍微調淡一點點，凸顯專長 */
+    font-size: 0.9rem;
+    /* 字體比專長稍微小一點點，建立視覺主次 */
+    line-height: 1.5;
+}
+
+/* 將勾勾改為專業的圓點符號 */
+.doc-experience li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: -2px;
+    color: var(--secondary-color);
+    /* 圓點配合標題使用橘黃色 */
+    font-size: 1.2rem;
+    font-weight: bold;
+}
