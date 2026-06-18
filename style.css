@@ -1837,34 +1837,45 @@ a {
 }
 
 /* =========================================
-   醫療團隊：醫師陣容專屬卡片樣式
+   醫療團隊：全新橫式醫師卡片樣式 (電腦版)
 ========================================= */
 .doctor-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    /* 改為垂直單列排列 */
+    gap: 35px;
+    /* 卡片與卡片之間的間距 */
+    max-width: 850px;
+    /* ✅ 關鍵：限制最大寬度，防止單張卡片在電腦螢幕上被拉得太寬 */
+    margin: 30px auto 0 auto;
+    /* 區塊置中 */
 }
 
 .doctor-card {
+    display: flex;
+    /* ✅ 開啟橫式左右並排 */
+    flex-direction: row;
+    align-items: stretch;
+    /* 讓左右兩側高度自動對齊 */
     background-color: white;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #f0f4f8;
 }
 
 .doctor-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
     box-shadow: 0 15px 35px rgba(0, 168, 150, 0.12);
 }
 
-/* 醫師照片區塊 */
+/* 左側醫師照片區塊 */
 .doc-photo {
-    width: 100%;
-    height: 280px;
-    /* 固定高度，讓所有卡片對齊 */
+    width: 280px;
+    /* ✅ 固定照片寬度 */
+    flex-shrink: 0;
+    /* 防止照片被右側文字擠壓變形 */
     background-color: #eef3f5;
     overflow: hidden;
 }
@@ -1872,75 +1883,50 @@ a {
 .doc-photo img {
     width: 100%;
     height: 100%;
-    /* ✅ 將 cover 改為 contain，保證不裁切 */
-    object-fit: contain;
-    object-position: center bottom;
-    /* 讓人物重心往下沉穩一點 */
+    object-fit: cover;
+    /* 完美填滿 */
+    object-position: center 10%;
+    /* 優先保留頭部 */
     transition: transform 0.5s ease;
-    background-color: #eef3f5;
-    /* 圖片若沒填滿，會露出這個優雅的淺灰藍底色 */
 }
 
-.doctor-card:hover .doc-photo img {
-    transform: scale(1.05);
-    /* 滑鼠移過去照片微微放大 */
-}
-
-/* 醫師資訊區塊 */
+/* 右側醫師資訊區塊 */
 .doc-info {
-    padding: 30px 25px;
+    flex-grow: 1;
+    /* 自動填滿剩餘的右側空間 */
+    padding: 35px 30px 30px 30px;
+    /* 調整內距 */
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* 讓內容在右側垂直置中 */
 }
 
+/* 醫師職稱標籤 */
 .doc-title-badge {
     position: absolute;
-    top: -15px;
-    left: 25px;
+    top: 25px;
+    /* 改為右上角或左上角定位 */
+    right: 30px;
+    /* 搬到右側，排版更流暢 */
     background-color: var(--secondary-color);
     color: white;
     padding: 5px 15px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(240, 165, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(240, 165, 0, 0.2);
 }
 
 .doc-info h3 {
     color: var(--text-main);
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+    font-size: 1.6rem;
+    margin: 0 0 20px 0;
     border-bottom: 2px solid var(--bg-color);
     padding-bottom: 15px;
-}
-
-.doc-specialty h4 {
-    color: var(--primary-color);
-    font-size: 1.05rem;
-    margin-bottom: 12px;
-}
-
-.doc-specialty ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
-
-.doc-specialty li {
-    position: relative;
-    padding-left: 20px;
-    margin-bottom: 8px;
-    color: #555;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.doc-specialty li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: var(--primary-color);
-    font-weight: bold;
+    width: 70%;
+    /* 防止名字去撞到右上角的標籤 */
 }
 
 /* 為了讓手機版選單正常顯示首頁按鈕的微調 */
@@ -1951,6 +1937,42 @@ a {
         background-color: #f8fafc;
         color: var(--primary-color) !important;
     }
+
+/* =========================================
+       手機版：醫師卡片自動恢復直式排版
+    ========================================= */
+.doctor-grid {
+    width: 100% !important;
+    padding: 0 10px !important;
+}
+
+.doctor-card {
+    flex-direction: column !important;
+    /* 手機版改回上下堆疊 */
+}
+
+.doc-photo {
+    width: 100% !important;
+    /* 照片寬度恢復 100% */
+    height: 320px !important;
+    /* 給予舒適的直式高度 */
+}
+
+.doc-info {
+    padding: 40px 20px 25px 20px !important;
+}
+
+.doc-title-badge {
+    top: -15px !important;
+    /* 手機版將標籤放回復蓋在照片邊緣的位置 */
+    left: 20px !important;
+    right: auto !important;
+}
+
+.doc-info h3 {
+    width: 100% !important;
+    font-size: 1.4rem !important;
+}
 }
 
 /* =========================================

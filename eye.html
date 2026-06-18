@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>眼科團隊 - 活力醫療中心</title>
-    <link rel="stylesheet" href="style.css?v=22" />
+    <link rel="stylesheet" href="style.css?v=24" />
   </head>
   <body>
     <header class="navbar">
@@ -140,6 +140,18 @@
         </div>
       </section>
 
+    <section class="about-section bg-light">
+        <div class="container">
+          <h2 class="section-title text-center">醫療設備與環境導覽</h2>
+          <p class="text-center" style="color:#888; margin-bottom: 25px;">🔍 點擊圖片可全螢幕放大觀看</p>
+          <div class="gallery-grid">
+            <img src="image/eye-env1.jpg" alt="高階眼科檢查儀器" class="zoomable-img" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500&q=80'" />
+            <img src="image/eye-env2.jpg" alt="明亮的眼科候診區" class="zoomable-img" onerror="this.src='https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500&q=80'" />
+            <img src="image/eye-env3.jpg" alt="專業配鏡與衛教諮詢" class="zoomable-img" onerror="this.src='https://images.unsplash.com/photo-1584362917165-526a968579e8?w=500&q=80'" />
+            <img src="image/eye-env4.jpg" alt="OCT 光學斷層掃描室" class="zoomable-img" onerror="this.src='https://images.unsplash.com/photo-1579684453423-f84349ef60b0?w=500&q=80'" />
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="footer">
@@ -147,12 +159,40 @@
         <p>© 2026 活力醫療機構 All Rights Reserved.</p>
       </div>
     </footer>
-
+    <div id="image-lightbox" class="lightbox">
+      <span class="lightbox-close">×</span>
+      <img class="lightbox-content" id="lightbox-img" src="" alt="放大圖片" />
+    </div>
     <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
 
     <script>
-      // 回到頁頂按鈕邏輯
       document.addEventListener("DOMContentLoaded", () => {
+        // 1. 環境導覽圖片放大燈箱邏輯
+        const galleryGrid = document.querySelector(".gallery-grid");
+        const lightbox = document.getElementById("image-lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        const lightboxClose = document.querySelector(".lightbox-close");
+
+        if (galleryGrid && lightbox) {
+          galleryGrid.addEventListener("click", (e) => {
+            if (e.target.classList.contains("zoomable-img")) {
+              lightbox.style.display = "flex";
+              lightboxImg.src = e.target.src;
+            }
+          });
+
+          lightboxClose.addEventListener("click", () => {
+            lightbox.style.display = "none";
+          });
+
+          lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) {
+              lightbox.style.display = "none";
+            }
+          });
+        }
+
+        // 2. 回到頁頂按鈕邏輯
         const backToTopBtn = document.getElementById("backToTopBtn");
         if (backToTopBtn) {
           window.addEventListener("scroll", () => {
