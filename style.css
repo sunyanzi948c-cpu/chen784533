@@ -2021,3 +2021,164 @@ a {
     font-size: 1.2rem;
     font-weight: bold;
 }
+
+/* =========================================
+   門診時刻表：按鈕與專屬彈出視窗樣式
+========================================= */
+/* 按鈕設計 */
+.schedule-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 168, 150, 0.2);
+}
+
+.schedule-btn:hover {
+    background-color: #008a7b;
+    /* 滑鼠移過變深綠色 */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 168, 150, 0.3);
+}
+
+/* 彈出視窗背景遮罩 */
+.custom-modal {
+    display: none;
+    /* 預設隱藏 */
+    position: fixed;
+    z-index: 9999;
+    /* 確保顯示在最上層 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* 半透明黑底 */
+    backdrop-filter: blur(3px);
+    /* 背景微微模糊的高級感 */
+    align-items: center;
+    justify-content: center;
+}
+
+/* 彈出視窗白底區塊 */
+.custom-modal-content {
+    background-color: white;
+    padding: 25px 20px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    /* 限制最大寬度，電腦上看才不會太大 */
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.3s ease;
+    /* 浮現動畫 */
+}
+
+/* 關閉按鈕 (X) */
+.custom-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.custom-modal-close:hover {
+    color: #ff4d4f;
+    /* 碰到變紅色提示可以關閉 */
+}
+
+.custom-modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+/* 視窗浮現的平滑動畫 */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   門診時刻表：原生 HTML 表格設計
+========================================= */
+.schedule-table-container {
+    width: 100%;
+    overflow-x: auto;
+    /* ✅ 手機版螢幕太窄時，允許表格左右滑動 */
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.schedule-table {
+    width: 100%;
+    min-width: 650px;
+    /* ✅ 強制表格最小寬度，防止文字被擠壓成一直線 */
+    border-collapse: collapse;
+    text-align: center;
+    background-color: white;
+}
+
+/* 表格標題列 (深灰底白字) */
+.schedule-table th {
+    background-color: #555555;
+    color: white;
+    padding: 12px 8px;
+    font-size: 1.05rem;
+    border: 1px solid #444;
+    white-space: nowrap;
+}
+
+/* 表格儲存格 */
+.schedule-table td {
+    padding: 15px 5px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    height: 90px;
+    /* 統一高度，看起來更整齊 */
+}
+
+/* 左側「早上/下午/晚上」時段標籤 */
+.time-slot {
+    background-color: #555555;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 60px;
+    border: 1px solid #444 !important;
+}
+
+/* 看診診所文字 (紫紅字體) */
+.active-clinic {
+    color: #900C3F;
+    /* 完美還原圖檔中的紫紅色 */
+    font-weight: bold;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+/* 特別備註文字 (如：最後一周不看診) */
+.active-clinic .note {
+    display: block;
+    color: #D32F2F;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}

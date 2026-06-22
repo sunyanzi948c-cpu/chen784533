@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>眼科團隊 - 活力醫療中心</title>
-    <link rel="stylesheet" href="style.css?v=24" />
+    <link rel="stylesheet" href="style.css?v=26" />
   </head>
   <body>
     <header class="navbar">
@@ -86,8 +86,11 @@
                 <img src="image/124.jpg" alt="張璟育 醫師"  />
               </div>
               <div class="doc-info">
-                <span class="doc-title-badge">眼科主任</span>
-                <h3>張璟育 醫師</h3>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--bg-color); padding-bottom: 15px; margin-bottom: 20px;">
+                  <h3 style="border: none; padding: 0; margin: 0;">張璟育 醫師</h3>
+                  <button class="schedule-btn" data-name="張璟育 醫師" data-schedule="#">📅 門診時間</button>
+                </div>
                 <div class="doc-specialty">
                   <h4>主治專長：</h4>
                   <ul>
@@ -111,9 +114,7 @@
               </div>
             </div>
 
-            <div c
-
-          </div>
+            
         </div>
       </section>
 
@@ -165,6 +166,57 @@
       <span class="lightbox-close">×</span>
       <img class="lightbox-content" id="lightbox-img" src="" alt="放大圖片" />
     </div>
+    <div id="schedule-modal" class="custom-modal">
+      <div class="custom-modal-content" style="max-width: 800px;"> <span class="custom-modal-close" title="關閉視窗">&times;</span>
+        <h3 id="schedule-modal-title" style="color: var(--text-main); text-align: center; margin-bottom: 20px;">張璟育 醫師 班表</h3>
+        
+        <div class="schedule-table-container">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>時段</th>
+                <th>星期一</th>
+                <th>星期二</th>
+                <th>星期三</th>
+                <th>星期四</th>
+                <th>星期五</th>
+                <th>星期六</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="time-slot">早上</td>
+                <td></td>
+                <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                <td></td>
+                <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                <td class="active-clinic">廣東路<br>李氏聯合診所<br><span class="note">每月最後一周<br>不看診</span></td>
+              </tr>
+              <tr>
+                <td class="time-slot">下午</td>
+                <td></td>
+                <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                <td></td>
+                <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="time-slot">晚上</td>
+                <td></td>
+                <td></td>
+                <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
     <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
 
     <script>
@@ -203,6 +255,46 @@
           });
           backToTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
         }
+      });
+
+      // =========================================
+      // 3. 門診時刻表彈出視窗邏輯 (純表格版)
+      // =========================================
+      const scheduleBtns = document.querySelectorAll('.schedule-btn');
+      const scheduleModal = document.getElementById('schedule-modal');
+      const scheduleModalTitle = document.getElementById('schedule-modal-title');
+      const scheduleModalClose = document.querySelector('.custom-modal-close');
+
+      // 因為有兩個不同的彈出視窗邏輯，確保都在 DOMContentLoaded 內執行最安全
+      document.addEventListener("DOMContentLoaded", () => {
+          // 確保元素存在才綁定事件
+          if (scheduleBtns.length > 0 && scheduleModal) {
+              // 點擊按鈕打開視窗，並動態填入醫師名字 (不再需要處理圖片)
+              scheduleBtns.forEach(btn => {
+                  btn.addEventListener('click', function() {
+                      const docName = this.getAttribute('data-name');
+                      if (scheduleModalTitle) {
+                          scheduleModalTitle.textContent = docName + ' 門診時間';
+                      }
+                      scheduleModal.style.display = 'flex'; // 顯示視窗
+                  });
+              });
+
+              // 點擊右上角 X 關閉視窗
+              if (scheduleModalClose) {
+                  scheduleModalClose.addEventListener('click', () => {
+                      scheduleModal.style.display = 'none';
+                  });
+              }
+
+              // 點擊視窗外的黑色半透明背景，也能自動關閉視窗 (貼心防呆)
+              window.addEventListener('click', (e) => {
+                  // 注意：這裡有兩個燈箱，為了避免衝突，用 target 確認是點到哪個背景
+                  if (e.target === scheduleModal) {
+                      scheduleModal.style.display = 'none';
+                  }
+              });
+          }
       });
     </script>
   </body>
