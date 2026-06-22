@@ -1586,6 +1586,24 @@ a {
     vertical-align: middle;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+/* 手機版：醫師名字與按鈕改為上下排列 */
+.doc-header {
+    flex-direction: column !important;
+    /* 改為上下堆疊 */
+    align-items: flex-start !important;
+    /* 靠左對齊 */
+    gap: 15px;
+    /* 名字與按鈕之間增加距離 */
+}
+
+.doc-header .schedule-btn {
+    width: 100%;
+    /* 讓按鈕在手機上撐滿寬度，長輩更好點擊！ */
+    text-align: center;
+    padding: 12px 0;
+    /* 稍微加高按鈕，提升手指觸控體驗 */
+}
 }
 
 /* =========================================
@@ -2181,4 +2199,24 @@ a {
     color: #D32F2F;
     font-size: 0.85rem;
     margin-top: 5px;
+}
+
+/* =========================================
+   醫師姓名與按鈕區塊 (Doc Header)
+========================================= */
+.doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--bg-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.doc-header h3 {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    white-space: nowrap;
+    /* 強制醫師名字絕對不換行 */
 }
