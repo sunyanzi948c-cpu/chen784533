@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>新陳代謝團隊 - 活力醫療中心</title>
+    <link rel="stylesheet" href="style.css?v=27" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container nav-container">
+        <a href="https://sunyanzi948c-cpu.github.io/chen784533/" class="logo">
+          <span class="logo-icon">✚</span> 活力醫療
+        </a>
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox" />
+        <label for="menu-toggle" class="menu-btn">☰</label>
+
+        <nav class="nav-links">
+          <a href="about.html">關於我們</a>
+          <a href="hours.html">門診時間</a>
+
+          <div class="dropdown">
+            <a href="#team" class="dropdown-toggle">醫療團隊 ▾</a>
+
+            <input type="checkbox" id="team-toggle" class="dropdown-checkbox" />
+            <label for="team-toggle" class="dropdown-label">醫療團隊 ▾</label>
+
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a href="Metabolism.html">新陳代謝科</a>
+                <a href="#">神經內科</a>
+                <a href="#">腎臟內科</a>
+                <a href="eye.html">眼科</a>
+                <a href="#">泌尿科</a>
+                <a href="#">肝膽腸胃科</a>
+                <a href="#">心臟內科</a>
+                <a href="#">胸腔內科</a>
+                <a href="#">居家護理師</a>
+                <a href="#">護理衛教師</a>
+                <a href="#">護理師</a>
+                <a href="#">營養衛教師</a>
+                <a href="#">血液透析護理師</a>
+                <a href="#">醫檢師</a>
+                <a href="#">心理師</a>
+                <a href="#">藥師</a>
+              </div>
+            </div>
+          </div>
+
+          <a href="dialysis.html">智能透析</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-header">
+      <div class="container">
+        <h1>新陳代謝團隊</h1>
+        <p>引進醫學中心級光學設備，守護您與全家人的靈魂之窗</p>
+      </div>
+    </div>
+
+    <main class="page-content">
+      
+      <section class="about-section">
+        <div class="container">
+          <div class="about-intro">
+            <div class="intro-text">
+              <h2 class="section-title">全方位的高階眼科照護</h2>
+              <p>活力醫療中心眼科部，致力於提供最精準、安全的眼疾診斷與治療。我們不惜重資引進最新的 OCT 眼部光學斷層掃描儀、高階白內障超音波乳化儀等設備。</p>
+              <p>無論是學童的近視控制、長輩的白內障手術，或是青光眼、黃斑部病變等慢性眼疾追蹤，我們都能為您提供與醫學中心同等級的專業照護，讓您重拾明亮視野。</p>
+            </div>
+            <div class="intro-image">
+              <img src="image/eye-clinic.jpg" alt="眼科精密檢查儀器" class="rounded-img shadow" onerror="this.src='https://images.unsplash.com/photo-1584362917165-526a968579e8?w=800&q=80'" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section bg-light">
+        <div class="container">
+          <h2 class="section-title text-center">專業醫師陣容</h2>
+          <div class="doctor-grid">
+            
+            <div class="doctor-card">
+              <div class="doc-photo">
+                <img src="image/51.jpg" alt="張毓泓 醫師"  />
+              </div>
+              <div class="doc-info">
+                
+                <div class="doc-header">
+                  <h3>張毓泓 醫師</h3>
+                  <button class="schedule-btn" data-name="張毓泓 醫師">📅 門診時間</button>
+                </div>
+                <div class="doc-specialty">
+                  <h4>主治專長：</h4>
+                  <ul>
+                    <li>內分泌</li>
+                    <li>新陳代謝</li>
+                  </ul>
+                </div>
+                
+                <div class="doc-experience">
+                  <h4>學經歷：</h4>
+                  <ul>
+                    <li>高雄醫學大學學士後醫學系</li>
+                    <li>高雄醫學大學臨床醫學研究所碩士</li>
+                    <li>高雄醫學院內分泌新陳代謝科主治醫師</li>
+                  </ul>
+                </div>
+
+                <div class="hidden-schedule" style="display: none;">
+                  <table class="schedule-table">
+                    <thead>
+                      <tr>
+                        <th>時段</th>
+                        <th>星期一</th>
+                        <th>星期二</th>
+                        <th>星期三</th>
+                        <th>星期四</th>
+                        <th>星期五</th>
+                        <th>星期六</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="time-slot">早上</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                      </tr>
+                      <tr>
+                        <td class="time-slot">下午</td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td class="time-slot">晚上</td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="doctor-card">
+              <div class="doc-photo">
+                <img src="image/52.jpg" alt="張道明 醫師"  />
+              </div>
+              <div class="doc-info">
+                
+                <div class="doc-header">
+                  <h3>張道明 醫師</h3>
+                  <button class="schedule-btn" data-name="張道明 醫師">📅 門診時間</button>
+                </div>
+                <div class="doc-specialty">
+                  <h4>主治專長：</h4>
+                  <ul>
+                    <li>糖尿病</li>
+                    <li>高血壓</li>
+                    <li>高血脂症</li>
+                    <li>甲狀腺疾病</li>
+                    <li>痛風症</li>
+                    <li>肥胖症</li>
+                  </ul>
+                </div>
+                
+                <div class="doc-experience">
+                  <h4>學經歷：</h4>
+                  <ul>
+                    <li>高雄醫學大學醫學院</li>
+                    <li>國立台灣大學院公共衛生碩士</li>
+                    <li>教育部部定講師</li>
+                    <li>屏東基督教醫院新陳代謝科主任</li>
+                  </ul>
+                </div>
+
+                <div class="hidden-schedule" style="display: none;">
+                  <table class="schedule-table">
+                    <thead>
+                      <tr>
+                        <th>時段</th>
+                        <th>星期一</th>
+                        <th>星期二</th>
+                        <th>星期三</th>
+                        <th>星期四</th>
+                        <th>星期五</th>
+                        <th>星期六</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="time-slot">早上</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                      </tr>
+                      <tr>
+                        <td class="time-slot">下午</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td class="time-slot">晚上</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+            <div class="doctor-card">
+              <div class="doc-photo">
+                <img src="image/53.jpg" alt="張璟育 醫師"  />
+              </div>
+              <div class="doc-info">
+                
+                <div class="doc-header">
+                  <h3>林昆正 醫師</h3>
+                  <button class="schedule-btn" data-name="林昆正 醫師">📅 門診時間</button>
+                </div>
+                <div class="doc-specialty">
+                  <h4>主治專長：</h4>
+                  <ul>
+                    <li>眼科一般疾病診斷與治療</li>
+                    <li>白內障診斷與治療</li>
+                    <li>青光眼診斷與治療</li>
+                    <li>視網膜疾病與黃斑部疾病診斷與治療</li>
+                    <li>兒童視力保健</li>
+                  </ul>
+                </div>
+                
+                <div class="doc-experience">
+                  <h4>學經歷：</h4>
+                  <ul>
+                    <li>高雄醫學大學 醫學系畢業</li>
+                    <li>前 高雄長庚醫院 眼科主治醫師</li>
+                    <li>中華民國眼科醫學會 專科醫師</li>
+                  </ul>
+                </div>
+
+                <div class="hidden-schedule" style="display: none;">
+                  <table class="schedule-table">
+                    <thead>
+                      <tr>
+                        <th>時段</th>
+                        <th>星期一</th>
+                        <th>星期二</th>
+                        <th>星期三</th>
+                        <th>星期四</th>
+                        <th>星期五</th>
+                        <th>星期六</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="time-slot">早上</td>
+                        <td></td>
+                        <td></td>
+                        <td class="active-clinic" style="color: #0066cc;">民族路<br>李洮俊診所</td>
+                        <td></td>
+                        <td class="active-clinic" style="color: #0066cc;">民族路<br>李洮俊診所</td>
+                        <td class="active-clinic" style="color: #0066cc;">民族路<br>李洮俊診所</td>
+                      </tr>
+                      <tr>
+                        <td class="time-slot">下午</td>
+                        <td></td>
+                        <td></td>
+                        <td class="active-clinic" style="color: #0066cc;">民族路<br>李洮俊診所</td>
+                        <td class="active-clinic" style="color: #0066cc;">民族路<br>李洮俊診所</td>
+                        <td class="active-clinic" style="color: #0066cc;">民族路<br>李洮俊診所</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td class="time-slot">晚上</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="active-clinic" style="color: #0066cc;">民族路<br>李洮俊診所</td>
+                        <td class="active-clinic" style="color: #0066cc;">民族路<br>李洮俊診所</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+
+            
+        </div>
+      </section>
+
+      <section class="about-section">
+        <div class="container">
+          <h2 class="section-title text-center">特色醫療服務</h2>
+          <div class="vision-grid">
+            <div class="vision-card">
+              <div class="vision-icon">🔬</div>
+              <h3>眼科一般疾病診斷與治療</h3>
+              <p>採用微小切口超音波乳化術，免打針、免縫線，搭配高階人工水晶體，術後恢復快，讓長輩視覺回春。</p>
+            </div>
+            <div class="vision-card">
+              <div class="vision-icon">👓</div>
+              <h3>白內障診斷與治療</h3>
+              <p>專為發育中孩童設計，提供角膜塑型片 (Ortho-K) 驗配、低濃度散瞳劑等多元方案，有效減緩近視加深。</p>
+            </div>
+            <div class="vision-card">
+              <div class="vision-icon">👁️‍🗨️</div>
+              <h3>眼底斷層掃描 (OCT)</h3>
+              <p>高解析度視網膜斷層掃描，不需點散瞳劑即可進行，是黃斑部病變與青光眼早期診斷的絕佳利器。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <section class="about-section bg-light">
+        <div class="container">
+          <h2 class="section-title text-center">醫療設備與環境導覽</h2>
+          <p class="text-center" style="color:#888; margin-bottom: 25px;">🔍 點擊圖片可全螢幕放大觀看</p>
+          <div class="gallery-grid">
+            <img src="image/001.jpg" alt="高階眼科檢查儀器" class="zoomable-img" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500&q=80'" />
+            <img src="image/002.jpg" alt="明亮的眼科候診區" class="zoomable-img" onerror="this.src='https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500&q=80'" />
+            <img src="image/003.jpg" alt="專業配鏡與衛教諮詢" class="zoomable-img" onerror="this.src='https://images.unsplash.com/photo-1584362917165-526a968579e8?w=500&q=80'" />
+            <img src="image/004.jpg" alt="OCT 光學斷層掃描室" class="zoomable-img" onerror="this.src='https://images.unsplash.com/photo-1579684453423-f84349ef60b0?w=500&q=80'" />
+            <img src="image/005.jpg" alt="OCT 光學斷層掃描室" class="zoomable-img" onerror="this.src='https://images.unsplash.com/photo-1579684453423-f84349ef60b0?w=500&q=80'" />
+            <img src="image/006.jpg" alt="OCT 光學斷層掃描室" class="zoomable-img" onerror="this.src='https://images.unsplash.com/photo-1579684453423-f84349ef60b0?w=500&q=80'" />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>© 2026 活力醫療機構 All Rights Reserved.</p>
+      </div>
+    </footer>
+    <div id="image-lightbox" class="lightbox">
+      <span class="lightbox-close">×</span>
+      <img class="lightbox-content" id="lightbox-img" src="" alt="放大圖片" />
+    </div>
+    <div id="schedule-modal" class="custom-modal">
+      <div class="custom-modal-content" style="max-width: 800px;">
+        <span class="custom-modal-close" title="關閉視窗">&times;</span>
+        <h3 id="schedule-modal-title" style="color: var(--text-main); text-align: center; margin-bottom: 20px;">醫師 班表</h3>
+        
+        <div class="schedule-table-container" id="modal-dynamic-content">
+        </div>
+      </div>
+    </div>
+    <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // 1. 環境導覽圖片放大燈箱邏輯
+        const galleryGrid = document.querySelector(".gallery-grid");
+        const lightbox = document.getElementById("image-lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        const lightboxClose = document.querySelector(".lightbox-close");
+
+        if (galleryGrid && lightbox) {
+          galleryGrid.addEventListener("click", (e) => {
+            if (e.target.classList.contains("zoomable-img")) {
+              lightbox.style.display = "flex";
+              lightboxImg.src = e.target.src;
+            }
+          });
+
+          lightboxClose.addEventListener("click", () => {
+            lightbox.style.display = "none";
+          });
+
+          lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) {
+              lightbox.style.display = "none";
+            }
+          });
+        }
+
+        // 2. 回到頁頂按鈕邏輯
+        const backToTopBtn = document.getElementById("backToTopBtn");
+        if (backToTopBtn) {
+          window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) backToTopBtn.classList.add("show");
+            else backToTopBtn.classList.remove("show");
+          });
+          backToTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        }
+      });
+
+      // =========================================
+      // 3. 門診時刻表彈出視窗邏輯 (模組化動態抓取版)
+      // =========================================
+      const scheduleBtns = document.querySelectorAll('.schedule-btn');
+      const scheduleModal = document.getElementById('schedule-modal');
+      const scheduleModalTitle = document.getElementById('schedule-modal-title');
+      const scheduleModalClose = document.querySelector('.custom-modal-close');
+      const modalDynamicContent = document.getElementById('modal-dynamic-content'); // 找到視窗裡的空容器
+
+      document.addEventListener("DOMContentLoaded", () => {
+          if (scheduleBtns.length > 0 && scheduleModal) {
+              
+              scheduleBtns.forEach(btn => {
+                  btn.addEventListener('click', function() {
+                      // 1. 設定視窗標題為該醫師名字
+                      const docName = this.getAttribute('data-name');
+                      if (scheduleModalTitle) {
+                          scheduleModalTitle.textContent = docName + ' 門診時間';
+                      }
+
+                      // 2. 向上尋找這顆按鈕所屬的「醫師卡片」
+                      const doctorCard = this.closest('.doctor-card');
+                      
+                      // 3. 在這張卡片內，尋找隱藏的班表資料
+                      const hiddenSchedule = doctorCard.querySelector('.hidden-schedule');
+
+                      // 4. 將隱藏的班表 HTML，完整複製並塞入彈出視窗中
+                      if (hiddenSchedule && modalDynamicContent) {
+                          modalDynamicContent.innerHTML = hiddenSchedule.innerHTML;
+                      } else {
+                          modalDynamicContent.innerHTML = '<p style="text-align:center; padding: 20px;">目前尚無班表資料</p>';
+                      }
+
+                      // 5. 顯示彈出視窗
+                      scheduleModal.style.display = 'flex'; 
+                  });
+              });
+
+              // 關閉視窗邏輯
+              if (scheduleModalClose) {
+                  scheduleModalClose.addEventListener('click', () => {
+                      scheduleModal.style.display = 'none';
+                  });
+              }
+
+              window.addEventListener('click', (e) => {
+                  if (e.target === scheduleModal) {
+                      scheduleModal.style.display = 'none';
+                  }
+              });
+          }
+      });
+    </script>
+  </body>
+</html>
