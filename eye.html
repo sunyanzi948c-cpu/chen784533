@@ -83,7 +83,7 @@
             
             <div class="doctor-card">
               <div class="doc-photo">
-                <img src="image/124.jpg" alt="張璟育 醫師"  />
+                <img src="image/124.jpg" alt="張璟育 醫師" />
               </div>
               <div class="doc-info">
                 
@@ -91,24 +91,90 @@
                   <h3>張璟育 醫師</h3>
                   <button class="schedule-btn" data-name="張璟育 醫師">📅 門診時間</button>
                 </div>
-                <div class="doc-specialty">
-                  <h4>主治專長：</h4>
-                  <ul>
-                    <li>眼科一般疾病診斷與治療</li>
-                    <li>白內障診斷與治療</li>
-                    <li>青光眼診斷與治療</li>
-                    <li>視網膜疾病與黃斑部疾病診斷與治療</li>
-                    <li>兒童視力保健</li>
-                  </ul>
-                </div>
                 
-                <div class="doc-experience">
-                  <h4>學經歷：</h4>
-                  <ul>
-                    <li>高雄醫學大學 醫學系畢業</li>
-                    <li>前 高雄長庚醫院 眼科主治醫師</li>
-                    <li>中華民國眼科醫學會 專科醫師</li>
-                  </ul>
+                <div class="doctor-tabs">
+                  <div class="tab-nav">
+                    <button class="tab-btn active" data-target="specialty">主治專長</button>
+                    <button class="tab-btn" data-target="experience">學經歷</button>
+                    <button class="tab-btn" data-target="licenses">專業證照</button>
+                  </div>
+                  
+                  <div class="tab-panes">
+                    <div class="tab-pane active" data-pane="specialty">
+                      <div class="doc-specialty" style="margin:0; padding:0;">
+                        <ul>
+                          <li>眼科一般疾病診斷與治療</li>
+                          <li>白內障診斷與治療</li>
+                          <li>青光眼診斷與治療</li>
+                          <li>視網膜疾病與黃斑部疾病診斷與治療</li>
+                          <li>兒童視力保健</li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div class="tab-pane" data-pane="experience">
+                      <div class="doc-experience" style="margin:0; padding:0; border:none;">
+                        <ul>
+                          <li>高雄醫學大學 醫學系畢業</li>
+                          <li>前 高雄長庚醫院 眼科主治醫師</li>
+                          <li>中華民國眼科醫學會 專科醫師</li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div class="tab-pane" data-pane="licenses">
+                      <div class="doc-experience" style="margin:0; padding:0; border:none;">
+                        <ul>
+                          <li>中華民國眼科專科醫師證書</li>
+                          <li>台灣白內障及屈光手術醫學會會員</li>
+                          <li>學童近視控制與角膜塑型片認證醫師</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div> <div class="hidden-schedule" style="display: none;">
+                  <table class="schedule-table">
+                    <thead>
+                      <tr>
+                        <th>時段</th>
+                        <th>星期一</th>
+                        <th>星期二</th>
+                        <th>星期三</th>
+                        <th>星期四</th>
+                        <th>星期五</th>
+                        <th>星期六</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="time-slot">早上</td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所<br><span class="note">每月最後一周<br>不看診</span></td>
+                      </tr>
+                      <tr>
+                        <td class="time-slot">下午</td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td class="time-slot">晚上</td>
+                        <td></td>
+                        <td></td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td class="active-clinic">廣東路<br>李氏聯合診所</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
 
               </div>
@@ -295,7 +361,35 @@
                   }
               });
           }
+
+          const allTabBtns = document.querySelectorAll('.tab-btn');
+
+        if (allTabBtns.length > 0) {
+          allTabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+              const currentCard = this.closest('.doctor-card');
+              const targetPaneName = this.getAttribute('data-target');
+
+              if (currentCard) {
+                // 切換按鈕 active 狀態 (僅限當前卡片)
+                currentCard.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // 切換面板 active 狀態 (僅限當前卡片)
+                currentCard.querySelectorAll('.tab-pane').forEach(pane => {
+                  if (pane.getAttribute('data-pane') === targetPaneName) {
+                    pane.classList.add('active');
+                  } else {
+                    pane.classList.remove('active');
+                  }
+                });
+              }
+            });
+          });
+        }
       });
+
+      
     </script>
   </body>
 </html>
