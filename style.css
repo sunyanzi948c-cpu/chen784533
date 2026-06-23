@@ -2220,3 +2220,85 @@ a {
     white-space: nowrap;
     /* 強制醫師名字絕對不換行 */
 }
+
+/* =========================================
+   醫療團隊：醫師卡片內建分頁標籤樣式
+========================================= */
+.doctor-tabs {
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* 標籤導覽列 */
+.tab-nav {
+    display: flex;
+    border-bottom: 2px solid var(--bg-color);
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+/* 單個標籤按鈕 */
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    color: #777;
+    font-weight: bold;
+    position: relative;
+    bottom: -2px;
+    /* 完美壓在導覽列底線上 */
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+}
+
+/* 當前選中的標籤狀態 (綠色亮線) */
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* 內容面板基礎設定 */
+.tab-pane {
+    display: none;
+    /* 預設全部隱藏 */
+    animation: tabFadeIn 0.4s ease;
+    /* 切換時的流暢淡入特效 */
+}
+
+/* 當前切換到的面板顯示出來 */
+.tab-pane.active {
+    display: block;
+}
+
+/* 淡入動畫關鍵影格 */
+@keyframes tabFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 手機版微調：讓標籤按鈕寬度平分，手指更好按 */
+@media screen and (max-width: 768px) {
+    .tab-nav {
+        justify-content: space-between;
+    }
+
+    .tab-btn {
+        padding: 10px 0;
+        flex: 1;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+}
