@@ -2302,3 +2302,38 @@ a {
         font-size: 0.9rem;
     }
 }
+
+/* =========================================
+   導覽列：當前停留網頁 (Active) 的標籤樣式
+========================================= */
+/* 確保所有導覽列連結都能作為底線的定位基準 */
+.nav-links a {
+    position: relative;
+}
+
+/* 當前停留頁面的文字變成綠色並加粗 */
+.nav-links a.active {
+    color: var(--primary-color) !important;
+    font-weight: bold;
+}
+
+/* 畫出文字下方的黃色底線 */
+.nav-links a.active::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    /* 距離文字底部的距離，可自行微調 */
+    left: 0;
+    width: 100%;
+    height: 3px;
+    /* 黃色底線的粗細 */
+    background-color: var(--secondary-color);
+    /* 使用您的橘黃色 */
+    border-radius: 2px;
+    /* 讓線條邊緣稍微圓潤一點點 */
+}
+
+/* 防止手機版漢堡選單內的下拉選項也長出長長的黃線 (針對下拉選單內的連結排除) */
+.dropdown-menu a.active::after {
+    display: none;
+}
