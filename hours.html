@@ -4,7 +4,158 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>門診時間 - 活力醫療中心</title>
-    <link rel="stylesheet" href="style.css?v=14" />
+    <link rel="stylesheet" href="style.css?v=30" />
+    
+    <style>
+      /* 基礎響應式切換開關 */
+      @media screen and (min-width: 769px) {
+          .mobile-hours-view { display: none !important; }
+      }
+      @media screen and (max-width: 768px) {
+          .desktop-hours-view { display: none !important; }
+      }
+
+      /* 科別專屬精美特調背景色 (完美還原您的圖檔) */
+      .bg-meta { background-color: #fffde6 !important; }      /* 新陳代謝：淡黃 */
+      .bg-kidney { background-color: #e6f9ec !important; }    /* 腎臟內科：淡綠 */
+      .bg-eye { background-color: #f3e6f9 !important; }       /* 眼科：淡紫 */
+      .bg-neuro { background-color: #e6f7ff !important; }     /* 神經內科：淡藍 */
+      .bg-heart { background-color: #ffffcc !important; }     /* 心臟內科：明黃 */
+      .bg-urinary { background-color: #ffe6e6 !important; }   /* 泌尿科：淡紅 */
+      .bg-gi { background-color: #f2f2f2 !important; }        /* 肝膽腸胃：輕灰 */
+      .bg-rest { background-color: #fafafa !important; color: #999; } /* 休診區塊 */
+
+      /* 班表特殊內文字體顏色 */
+      .text-clinic { color: #900C3F; font-weight: bold; display: block; } /* 廣東路紫紅字 */
+      .text-taichun { color: #0066cc; font-weight: bold; display: block; } /* 民族路藍字 */
+      .text-note { color: #d32f2f; font-size: 0.85rem; display: block; font-weight: normal; margin-top: 20px; } /* 備註紅字 */
+
+      /* =========================================
+         電腦版：大型多維度對照總表優化
+         ========================================= */
+      .hours-table {
+          width: 100%;
+          border-collapse: collapse;
+          text-align: center;
+          font-size: 0.95rem;
+      }
+      .hours-table th, .hours-table td {
+          border: 1px solid #ccc;
+          padding: 10px 6px;
+          vertical-align: middle;
+      }
+      .hours-table th {
+          background-color: #555;
+          color: white;
+          font-weight: bold;
+      }
+      .macro-time-title {
+          background-color: #f0f0f0;
+          font-weight: bold;
+          font-size: 1.05rem;
+          width: 80px;
+      }
+      .dept-title-col {
+          font-weight: bold;
+          width: 110px;
+          background-color: #fdfdfd;
+      }
+
+      /* =========================================
+         手機版：每週每日分頁標籤系統 (Daily Tabs)
+         ========================================= */
+      .mobile-hours-view {
+          margin-top: 15px;
+      }
+      /* 頂部星期切換列 */
+      .day-tabs-nav {
+          display: flex;
+          overflow-x: auto; /* 允許小手機左右滑動星期選單 */
+          white-space: nowrap;
+          border-bottom: 2px solid var(--bg-color);
+          margin-bottom: 20px;
+          padding-bottom: 5px;
+          -webkit-overflow-scrolling: touch;
+      }
+      .day-tab-btn {
+          flex: 1;
+          min-width: 65px;
+          background: none;
+          border: none;
+          padding: 12px 0;
+          font-size: 0.95rem;
+          font-weight: bold;
+          color: #666;
+          cursor: pointer;
+          border-bottom: 3px solid transparent;
+          transition: all 0.2s ease;
+          text-align: center;
+      }
+      .day-tab-btn.active {
+          color: var(--primary-color);
+          border-bottom: 3px solid var(--secondary-color); /* 亮眼黃底線 */
+      }
+      /* 每日內容面板 */
+      .day-pane {
+          display: none;
+          animation: hoursFadeIn 0.3s ease;
+      }
+      .day-pane.active {
+          display: block;
+      }
+      /* 手機大時段區塊 (上午/下午/晚上) */
+      .mobile-time-group {
+          margin-bottom: 25px;
+      }
+      .mobile-time-title {
+          background-color: #555;
+          color: white;
+          padding: 8px 15px;
+          border-radius: 6px;
+          font-weight: bold;
+          font-size: 1rem;
+          margin-bottom: 12px;
+          display: flex;
+          justify-content: space-between;
+      }
+      /* 手機版看診卡片堆疊 */
+      .mobile-clinic-card {
+          display: flex;
+          align-items: center;
+          padding: 12px 15px;
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          margin-bottom: 10px;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+      }
+      .mobile-card-dept {
+          font-weight: bold;
+          width: 100px;
+          border-right: 1px solid #ccc;
+          padding-right: 10px;
+          margin-right: 15px;
+          font-size: 0.95rem;
+      }
+      .mobile-card-docs {
+          flex: 1;
+          font-size: 0.95rem;
+          line-height: 1.4;
+      }
+      .mobile-rest-card {
+          text-align: center;
+          padding: 30px;
+          background-color: #f9f9f9;
+          color: #999;
+          border-radius: 8px;
+          font-weight: bold;
+          border: 1px dashed #ccc;
+      }
+
+      @keyframes hoursFadeIn {
+          from { opacity: 0; transform: translateY(5px); }
+          to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
   </head>
   <body>
     <header class="navbar">
@@ -58,114 +209,324 @@
 
     <main class="container page-content">
       
-      <section class="hours-section">
-        <h2 class="section-title text-center">每週門診時刻表</h2>
+      <section class="hours-section desktop-hours-view">
+        <h2 class="section-title text-center">每週門診時刻表 (總表)</h2>
         
         <div class="table-responsive shadow">
           <table class="hours-table">
             <thead>
               <tr>
-                <th class="time-col-header">看診時段</th>
+                <th>時段</th>
+                <th>科別</th>
                 <th>星期一</th>
                 <th>星期二</th>
                 <th>星期三</th>
                 <th>星期四</th>
                 <th>星期五</th>
                 <th>星期六</th>
-                <th class="holiday-col">星期日</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="time-col">
-                  <strong>🌞 上午診</strong><br>
-                  <span class="time-text">08:30 - 12:00</span>
-                </td>
-                <td>
-                  <span class="dept-badge badge-kidney">腎臟科</span><br>
-                  <span class="doc-name">李兆俊 院長</span>
-                </td>
-                <td>
-                  <span class="dept-badge badge-meta">新陳代謝</span><br>
-                  <span class="doc-name">王大明 醫師</span>
-                </td>
-                <td>
-                  <span class="dept-badge badge-kidney">腎臟科</span><br>
-                  <span class="doc-name">李兆俊 院長</span>
-                </td>
-                <td>
-                  <span class="dept-badge badge-heart">心臟內科</span><br>
-                  <span class="doc-name">陳小華 醫師</span>
-                </td>
-                <td>
-                  <span class="dept-badge badge-kidney">腎臟科</span><br>
-                  <span class="doc-name">李兆俊 院長</span>
-                </td>
-                <td>
-                  <span class="dept-badge badge-meta">新陳代謝</span><br>
-                  <span class="doc-name">王大明 醫師</span>
-                </td>
-                <td rowspan="3" class="holiday-col vertical-center">
-                  <strong>休<br>診</strong>
-                </td>
+                <td rowspan="7" class="macro-time-title">上午<br>08:00<br>~<br>12:00</td>
+                <td class="dept-title-col">新陳代謝科</td>
+                <td class="bg-meta">張毓泓<br>張道明</td>
+                <td class="bg-meta">張毓泓<br>張道明</td>
+                <td class="bg-meta">李洮俊<br>張道明</td>
+                <td class="bg-meta">張毓泓<br>張道明</td>
+                <td class="bg-meta">李洮俊<br>張道明</td>
+                <td class="bg-meta">張毓泓<br>張道明</td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">腎臟內科</td>
+                <td class="bg-kidney">藍文君</td>
+                <td class="bg-kidney">藍文君</td>
+                <td class="bg-kidney">藍文君<br>郭佩晴<br><span class="text-note" style="margin-top:2px;">9:00看診</span></td>
+                <td class="bg-kidney">劉冠逸<br><span class="text-note" style="margin-top:2px;">9:00看診</span></td>
+                <td class="bg-kidney">劉冠逸<br><span class="text-note" style="margin-top:2px;">9:00看診</span></td>
+                <td class="bg-kidney">藍文君</td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">眼科</td>
+                <td class="bg-rest"></td>
+                <td class="bg-eye">張璟育<br><span class="text-note" style="margin-top:2px;">8:45看診</span></td>
+                <td class="bg-eye">張璟育<br><span class="text-note" style="margin-top:2px;">8:45看診</span></td>
+                <td class="bg-rest"></td>
+                <td class="bg-eye">張璟育<br><span class="text-note" style="margin-top:2px;">8:45看診</span></td>
+                <td class="bg-eye">張璟育<br><span class="text-note" style="margin-top:2px; font-size:0.8rem;">8:45看診(每月最後一週不看診)</span></td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">神經內科</td>
+                <td class="bg-neuro">楊聖珊</td>
+                <td class="bg-neuro">吳淑蓉<br><span class="text-note" style="margin-top:2px;">8:30看診</span></td>
+                <td class="bg-neuro">楊聖珊</td>
+                <td class="bg-rest"></td>
+                <td class="bg-neuro">崔煥文</td>
+                <td class="bg-rest" rowspan="4" style="background-color:#fffde6 !important; color:#d32f2f; font-weight:bold; font-size:1.2rem;">休診</td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">心臟內科</td>
+                <td class="bg-rest"></td>
+                <td class="bg-heart">李坤泰</td>
+                <td class="bg-heart">李坤泰</td>
+                <td class="bg-rest"></td>
+                <td class="bg-heart">李坤泰</td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">泌尿科</td>
+                <td class="bg-rest"></td>
+                <td class="bg-rest"></td>
+                <td class="bg-urinary">劉中信<br><span class="text-note" style="margin-top:2px;">8:30看診</span></td>
+                <td class="bg-urinary">劉中信<br><span class="text-note" style="margin-top:2px;">8:30-11:30</span></td>
+                <td class="bg-urinary">劉中信<br><span class="text-note" style="margin-top:2px;">8:30-11:30</span></td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">肝膽腸胃科</td>
+                <td class="bg-rest"></td>
+                <td class="bg-gi">歐吉性</td>
+                <td class="bg-rest"></td>
+                <td class="bg-rest"></td>
+                <td class="bg-gi">歐吉性</td>
               </tr>
 
               <tr>
-                <td class="time-col">
-                  <strong>☕ 下午診</strong><br>
-                  <span class="time-text">14:30 - 17:30</span>
-                </td>
-                <td>
-                  <span class="dept-badge badge-heart">心臟內科</span><br>
-                  <span class="doc-name">陳小華 醫師</span>
-                </td>
-                <td>
-                  <span class="dept-badge badge-kidney">腎臟科</span><br>
-                  <span class="doc-name">李兆俊 院長</span>
-                </td>
-                <td>休診</td>
-                <td>
-                  <span class="dept-badge badge-meta">新陳代謝</span><br>
-                  <span class="doc-name">王大明 醫師</span>
-                </td>
-                <td>
-                  <span class="dept-badge badge-kidney">腎臟科</span><br>
-                  <span class="doc-name">李兆俊 院長</span>
-                </td>
-                <td>休診</td>
+                <td rowspan="6" class="macro-time-title">下午<br>14:30<br>~<br>17:30</td>
+                <td class="dept-title-col">新陳代謝科</td>
+                <td class="bg-meta">張道明</td>
+                <td class="bg-meta">張毓泓</td>
+                <td class="bg-meta">杜青玲</td>
+                <td class="bg-meta">張道明</td>
+                <td class="bg-meta">張毓泓</td>
+                <td class="bg-rest" rowspan="6" style="background-color:#fffde6 !important; color:#d32f2f; font-weight:bold; font-size:1.2rem;">休診</td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">腎臟內科</td>
+                <td class="bg-rest"></td>
+                <td class="bg-kidney">郭佩晴<br><span class="text-note" style="margin-top:2px;">14:45~17:00</span></td>
+                <td class="bg-kidney">郭佩晴</td>
+                <td class="bg-kidney">劉冠逸<br><span class="text-note" style="margin-top:2px;">15:00~16:30</span></td>
+                <td class="bg-kidney">劉冠逸</td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">眼科</td>
+                <td class="bg-rest"></td>
+                <td class="bg-eye">張璟育</td>
+                <td class="bg-rest"></td>
+                <td class="bg-eye">張璟育<br><span class="text-note" style="margin-top:2px; color:purple;">雷射優先</span></td>
+                <td class="bg-rest"></td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">神經內科</td>
+                <td class="bg-rest"></td>
+                <td class="bg-neuro">吳淑蓉<br><span class="text-note" style="margin-top:2px;">14:00~17:00</span></td>
+                <td class="bg-rest"></td>
+                <td class="bg-rest"></td>
+                <td class="bg-rest"></td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">心臟內科</td>
+                <td class="bg-rest"></td>
+                <td class="bg-rest"></td>
+                <td class="bg-heart">李坤泰</td>
+                <td class="bg-rest"></td>
+                <td class="bg-rest"></td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">泌尿科</td>
+                <td class="bg-urinary">陳明潭<br><span class="text-note" style="margin-top:2px;">14:00~16:40</span></td>
+                <td class="bg-urinary">張圖豪</td>
+                <td class="bg-urinary">劉中信<br><span class="text-note" style="margin-top:2px;">13:30-16:30</span></td>
+                <td class="bg-urinary">劉中信<br><span class="text-note" style="margin-top:2px;">13:30-16:30</span></td>
+                <td class="bg-rest"></td>
               </tr>
 
               <tr>
-                <td class="time-col">
-                  <strong>🌙 晚上診</strong><br>
-                  <span class="time-text">18:30 - 21:00</span>
-                </td>
-                <td>
-                  <span class="dept-badge badge-meta">新陳代謝</span><br>
-                  <span class="doc-name">王大明 醫師</span>
-                </td>
-                <td>休診</td>
-                <td>
-                  <span class="dept-badge badge-heart">心臟內科</span><br>
-                  <span class="doc-name">陳小華 醫師</span>
-                </td>
-                <td>休診</td>
-                <td>
-                  <span class="dept-badge badge-kidney">腎臟科</span><br>
-                  <span class="doc-name">李兆俊 院長</span>
-                </td>
-                <td>休診</td>
+                <td rowspan="3" class="macro-time-title">晚上<br>18:30<br>~<br>21:00</td>
+                <td class="dept-title-col">新陳代謝科</td>
+                <td class="bg-meta">張道明</td>
+                <td class="bg-meta">張毓泓</td>
+                <td class="bg-meta">張道明</td>
+                <td class="bg-meta">張道明</td>
+                <td class="bg-meta">張毓泓</td>
+                <td class="bg-rest" rowspan="3" style="background-color:#fffde6 !important; color:#d32f2f; font-weight:bold; font-size:1.2rem;">休診</td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">腎臟內科</td>
+                <td class="bg-kidney">藍文君</td>
+                <td class="bg-rest"></td>
+                <td class="bg-kidney">郭佩晴</td>
+                <td class="bg-rest"></td>
+                <td class="bg-kidney">劉冠逸</td>
+              </tr>
+              <tr>
+                <td class="dept-title-col">眼科</td>
+                <td class="bg-rest"></td>
+                <td class="bg-rest"></td>
+                <td class="bg-eye">張璟育</td>
+                <td class="bg-eye">張璟育</td>
+                <td class="bg-rest"></td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
 
+      <section class="hours-section mobile-hours-view">
+        <h2 class="section-title text-center" style="font-size: 1.4rem;">本日看診查詢</h2>
+        
+        <div class="day-tabs-nav">
+          <button class="day-tab-btn active" data-day="mon">周一</button>
+          <button class="day-tab-btn" data-day="tue">周二</button>
+          <button class="day-tab-btn" data-day="wed">周三</button>
+          <button class="day-tab-btn" data-day="thu">周四</button>
+          <button class="day-tab-btn" data-day="fri">周五</button>
+          <button class="day-tab-btn" data-day="sat">周六</button>
+          <button class="day-tab-btn" data-day="sun">周日</button>
+        </div>
+
+        <div class="day-pane active" id="pane-mon">
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌞 上午診</span> <span>08:00 - 12:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張毓泓、張道明</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">藍文君</div></div>
+            <div class="mobile-clinic-card bg-neuro"><div class="mobile-card-dept">神經內科</div><div class="mobile-card-docs">楊聖珊</div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>☕ 下午診</span> <span>14:30 - 17:30</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張道明</div></div>
+            <div class="mobile-clinic-card bg-urinary"><div class="mobile-card-dept">泌尿科</div><div class="mobile-card-docs">陳明潭 <span class="text-note" style="display:inline;">(14:00~16:40)</span></div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌙 晚上診</span> <span>18:30 - 21:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張道明</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">藍文君</div></div>
+          </div>
+        </div>
+
+        <div class="day-pane" id="pane-tue">
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌞 上午診</span> <span>08:00 - 12:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張毓泓、張道明</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">藍文君</div></div>
+            <div class="mobile-clinic-card bg-eye"><div class="mobile-card-dept">眼科</div><div class="mobile-card-docs">張璟育 <span class="text-note" style="display:inline;">(8:45看診)</span></div></div>
+            <div class="mobile-clinic-card bg-neuro"><div class="mobile-card-dept">神經內科</div><div class="mobile-card-docs">吳淑蓉 <span class="text-note" style="display:inline;">(8:30看診)</span></div></div>
+            <div class="mobile-clinic-card bg-heart"><div class="mobile-card-dept">心臟內科</div><div class="mobile-card-docs">李坤泰</div></div>
+            <div class="mobile-clinic-card bg-gi"><div class="mobile-card-dept">肝膽腸胃科</div><div class="mobile-card-docs">歐吉性</div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>☕ 下午診</span> <span>14:30 - 17:30</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張毓泓</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">郭佩晴 <span class="text-note" style="display:inline;">(14:45~17:00)</span></div></div>
+            <div class="mobile-clinic-card bg-eye"><div class="mobile-card-dept">眼科</div><div class="mobile-card-docs">張璟育</div></div>
+            <div class="mobile-clinic-card bg-neuro"><div class="mobile-card-dept">神經內科</div><div class="mobile-card-docs">吳淑蓉 <span class="text-note" style="display:inline;">(14:00~17:00)</span></div></div>
+            <div class="mobile-clinic-card bg-urinary"><div class="mobile-card-dept">泌尿科</div><div class="mobile-card-docs">張圖豪</div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌙 晚上診</span> <span>18:30 - 21:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張毓泓</div></div>
+          </div>
+        </div>
+
+        <div class="day-pane" id="pane-wed">
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌞 上午診</span> <span>08:00 - 12:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">李洮俊、張道明</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">藍文君、郭佩晴 <span class="text-note" style="display:inline;">(9:00看診)</span></div></div>
+            <div class="mobile-clinic-card bg-eye"><div class="mobile-card-dept">眼科</div><div class="mobile-card-docs">張璟育 <span class="text-note" style="display:inline;">(8:45看診)</span></div></div>
+            <div class="mobile-clinic-card bg-neuro"><div class="mobile-card-dept">神經內科</div><div class="mobile-card-docs">楊聖珊</div></div>
+            <div class="mobile-clinic-card bg-heart"><div class="mobile-card-dept">心臟內科</div><div class="mobile-card-docs">李坤泰</div></div>
+            <div class="mobile-clinic-card bg-urinary"><div class="mobile-card-dept">泌尿科</div><div class="mobile-card-docs">劉中信 <span class="text-note" style="display:inline;">(8:30看診)</span></div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>☕ 下午診</span> <span>14:30 - 17:30</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">杜青玲</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">郭佩晴</div></div>
+            <div class="mobile-clinic-card bg-heart"><div class="mobile-card-dept">心臟內科</div><div class="mobile-card-docs">李坤泰</div></div>
+            <div class="mobile-clinic-card bg-urinary"><div class="mobile-card-dept">泌尿科</div><div class="mobile-card-docs">劉中信 <span class="text-note" style="display:inline;">(13:30-16:30)</span></div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌙 晚上診</span> <span>18:30 - 21:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張道明</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">郭佩晴</div></div>
+            <div class="mobile-clinic-card bg-eye"><div class="mobile-card-dept">眼科</div><div class="mobile-card-docs">張璟育</div></div>
+          </div>
+        </div>
+
+        <div class="day-pane" id="pane-thu">
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌞 上午診</span> <span>08:00 - 12:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張毓泓、張道明</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">劉冠逸 <span class="text-note" style="display:inline;">(9:00看診)</span></div></div>
+            <div class="mobile-clinic-card bg-urinary"><div class="mobile-card-dept">泌尿科</div><div class="mobile-card-docs">劉中信 <span class="text-note" style="display:inline;">(8:30-11:30)</span></div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>☕ 下午診</span> <span>14:30 - 17:30</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張道明</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">劉冠逸 <span class="text-note" style="display:inline;">(15:00~16:30)</span></div></div>
+            <div class="mobile-clinic-card bg-eye"><div class="mobile-card-dept">眼科</div><div class="mobile-card-docs">張璟育 <span class="text-note" style="display:inline; color:purple;">(雷射優先)</span></div></div>
+            <div class="mobile-clinic-card bg-urinary"><div class="mobile-card-dept">泌尿科</div><div class="mobile-card-docs">劉中信 <span class="text-note" style="display:inline;">(13:30-16:30)</span></div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌙 晚上診</span> <span>18:30 - 21:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張道明</div></div>
+            <div class="mobile-clinic-card bg-eye"><div class="mobile-card-dept">眼科</div><div class="mobile-card-docs">張璟育</div></div>
+          </div>
+        </div>
+
+        <div class="day-pane" id="pane-fri">
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌞 上午診</span> <span>08:00 - 12:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">李洮俊、張道明</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">劉冠逸 <span class="text-note" style="display:inline;">(9:00看診)</span></div></div>
+            <div class="mobile-clinic-card bg-eye"><div class="mobile-card-dept">眼科</div><div class="mobile-card-docs">張璟育 <span class="text-note" style="display:inline;">(8:45看診)</span></div></div>
+            <div class="mobile-clinic-card bg-neuro"><div class="mobile-card-dept">神經內科</div><div class="mobile-card-docs">崔煥文</div></div>
+            <div class="mobile-clinic-card bg-heart"><div class="mobile-card-dept">心臟內科</div><div class="mobile-card-docs">李坤泰</div></div>
+            <div class="mobile-clinic-card bg-urinary"><div class="mobile-card-dept">泌尿科</div><div class="mobile-card-docs">劉中信 <span class="text-note" style="display:inline;">(8:30-11:30)</span></div></div>
+            <div class="mobile-clinic-card bg-gi"><div class="mobile-card-dept">肝膽腸胃科</div><div class="mobile-card-docs">歐吉性</div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>☕ 下午診</span> <span>14:30 - 17:30</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張毓泓</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">劉冠逸</div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌙 晚上診</span> <span>18:30 - 21:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張毓泓</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">劉冠逸</div></div>
+          </div>
+        </div>
+
+        <div class="day-pane" id="pane-sat">
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌞 上午診</span> <span>08:00 - 12:00</span></div>
+            <div class="mobile-clinic-card bg-meta"><div class="mobile-card-dept">新陳代謝科</div><div class="mobile-card-docs">張毓泓、張道明</div></div>
+            <div class="mobile-clinic-card bg-kidney"><div class="mobile-card-dept">腎臟內科</div><div class="mobile-card-docs">藍文君</div></div>
+            <div class="mobile-clinic-card bg-eye"><div class="mobile-card-dept">眼科</div><div class="mobile-card-docs">張璟育 <span class="text-note" style="display:inline; font-size:0.8rem;">(8:45看診，每月最後一週不看診)</span></div></div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>☕ 下午診</span> <span>14:30 - 17:30</span></div>
+            <div class="mobile-rest-card">❌ 本日下午休診</div>
+          </div>
+          <div class="mobile-time-group">
+            <div class="mobile-time-title"><span>🌙 晚上診</span> <span>18:30 - 21:00</span></div>
+            <div class="mobile-rest-card">❌ 本日晚上休診</div>
+          </div>
+        </div>
+
+        <div class="day-pane" id="pane-sun">
+          <div class="mobile-rest-card" style="padding: 60px 20px;">
+            <p style="font-size: 1.5rem; margin-bottom: 10px;">🏥 週日全天休診</p>
+            <p style="font-size: 0.9rem; color:#aaa;">如遇緊急狀況請前往急診就醫</p>
+          </div>
+        </div>
+
+      </section>
+
       <section class="notice-section">
         <div class="notice-box">
           <h3>📌 掛號與看診須知</h3>
           <ul class="notice-list">
-            <li><strong>掛號時間：</strong>上午診至 11:30 截止，下午診至 17:00 截止，晚上診至 20:30 截止。</li>
+            <li><strong>挂號時間：</strong>上午診至 11:30 截止，下午診至 17:00 截止，晚上診至 20:30 截止。</li>
             <li><strong>報到提醒：</strong>初診患者請攜帶「健保卡」及「身分證」，並請於門診結束前 30 分鐘完成報到手續。</li>
             <li><strong>預約須知：</strong>為節省您的等候時間，建議利用電話預約掛號。預約專線：(08) 123-4567。</li>
             <li><strong>抽血檢驗：</strong>需空腹抽血之患者，請於前一晚 12 點後禁食（可喝少許白開水），並於上午看診時段報到。</li>
@@ -185,22 +546,42 @@
     <button id="backToTopBtn" class="back-to-top" title="回到頁頂">⬆</button>
 
     <script>
-      // 回到頁頂按鈕邏輯
       document.addEventListener("DOMContentLoaded", () => {
+        
+        // 1. 回到頁頂按鈕邏輯
         const backToTopBtn = document.getElementById("backToTopBtn");
         if (backToTopBtn) {
           window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
-              backToTopBtn.classList.add("show");
-            } else {
-              backToTopBtn.classList.remove("show");
-            }
+            if (window.scrollY > 300) backToTopBtn.classList.add("show");
+            else backToTopBtn.classList.remove("show");
           });
+          backToTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        }
 
-          backToTopBtn.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+        // 2. 📱 手機版專屬：每週每日分頁標籤切換邏輯
+        const dayTabBtns = document.querySelectorAll('.day-tab-btn');
+        const dayPanes = document.querySelectorAll('.day-pane');
+
+        if (dayTabBtns.length > 0) {
+          dayTabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+              // 標籤亮燈切換
+              dayTabBtns.forEach(b => b.classList.remove('active'));
+              this.classList.add('active');
+
+              // 對應內容面板切換
+              const targetDay = this.getAttribute('data-day');
+              dayPanes.forEach(pane => {
+                if (pane.id === `pane-${targetDay}`) {
+                  pane.classList.add('active');
+                } else {
+                  pane.classList.remove('active');
+                }
+              });
+            });
           });
         }
+
       });
     </script>
   </body>
